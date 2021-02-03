@@ -26,10 +26,10 @@ export const saveRequirement =()=>({
   type:SAVE_REQUIREMENTS
 })
 
-export const setSaveRequirement = ( requirement, id ) => ( {
+export const setSaveRequirement = ( requirement, jid ) => ( {
   type: SET_SAVE_REQUIREMENTS,
   payload: requirement,
-  id:id
+  id:jid
 } );
 export const getRequirementModal = () => ( {
   type: GET_REQUIREMENTS_MODAL

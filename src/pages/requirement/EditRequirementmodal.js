@@ -15,16 +15,18 @@ const EditRequirementmodal = (props, row) => {
     const requirmentStore = useSelector((state) => state.Requirements.requirement);
     const [requirement, setRequirement] = useState( {
       jobcode: '',
+      jskill:'',
   } );
   
 
-  const { jobcode } = requirement;
+  const { jobcode, jskill } = requirement;
 
     useEffect( () => {
       
       setRequirement( {
           ...requirement,
           jobcode: requirmentStore ? requirmentStore.jobcode : '',
+          jskill:requirmentStore ? requirmentStore.jskill:'',
       } );
   
       // eslint-disable-next-line
@@ -60,7 +62,6 @@ const EditRequirementmodal = (props, row) => {
                                         type="text"
                                         name="jobcode"
                                         id="jobcode"
-                                        placeholder="Job Code"
                                         value={ jobcode || '' }/>
                                 </FormGroup>
                             </Col>
@@ -69,8 +70,9 @@ const EditRequirementmodal = (props, row) => {
                                 <Label for="empleadoNombre">Main Skill</Label>
                                     <Input
                                         type="text"
-                                        
-                                        name="jobcode" />
+                                        name="jskill"
+                                        id="jskill"
+                                        value={ jskill || '' } />
                                 </FormGroup>
                             </Col>
                         </Row>

@@ -342,23 +342,23 @@ const AddUser = () => {
                         <Row>
                         <label className="col-sm-12 m-0">What Applied</label>
                             <Col lg={4}>
-                        <div class="form-group form-check">                            
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox"/> PF Apply 
+                        <div className="form-group form-check">                            
+                            <label className="form-check-label">
+                            <input className="form-check-input" type="checkbox"/> PF Apply 
                             </label>
                         </div>
                         </Col>
                         <Col lg={4}>
-                        <div class="form-group form-check">                            
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox"/> PT Apply
+                        <div className="form-group form-check">                            
+                            <label className="form-check-label">
+                                <input className="form-check-input" type="checkbox"/> PT Apply
                             </label>
                         </div>
                         </Col>
                         <Col lg={4}>
-                        <div class="form-group form-check">                            
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox"/> ESI Apply
+                        <div className="form-group form-check">                            
+                            <label className="form-check-label">
+                                <input className="form-check-input" type="checkbox"/> ESI Apply
                             </label>
                         </div>
                         </Col>

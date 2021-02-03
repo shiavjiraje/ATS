@@ -8,8 +8,8 @@ import api from './axios';
    return api.get( '/CriticalRequirement' );
 };
 
- export const editRequirement = ( id ) => {
-    return api.get( `/Requirement_Master/${id}` );
+ export const editRequirement = () => {
+    return api.get( `/Requirement_Master` );
  };
 
  export const getClientList = () => {

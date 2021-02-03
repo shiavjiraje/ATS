@@ -98,7 +98,7 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewUser = () => {
+const ViewClient = () => {
 
     const dispatch = useDispatch(); 
    let records = useSelector((state) => state.List.joinlist);
@@ -111,39 +111,29 @@ const ViewUser = () => {
 
     const columns = [
         {
-            dataField:'id',
-            text:'ID',
-            hidden: true
-        },
-        {
-            dataField: 'e_code',
-            text: 'Employee Code.',
-            //sort: true,
-        },
-        {
             dataField: 'name',
-            text: 'Name',
+            text: 'Client Name',
             sort: true,
         },
         {
             dataField: 'company',
-            text: 'Company',
-        },
-        {
-            dataField: 'designation',
-            text: 'Designation',
-        },
-        {
-            dataField: 'location',
-            text: 'Location',
-        },
-        {
-            dataField: 'role',
-            text: 'Role',
+            text: 'Contact Person Name',
         },
         {
             dataField: 'email',
-            text: 'Email',
+            text: 'Contact Email',
+        },
+        {
+            dataField: 'email',
+            text: 'Contact Number',
+        },
+        {
+            dataField: 'email',
+            text: 'Date Of Creation',
+        },
+        {
+            dataField: 'Action',
+            text: 'Action',
         },
     ];
     return (
@@ -157,6 +147,6 @@ const ViewUser = () => {
     );
 };
 
-export default ViewUser;
+export default ViewClient;
 
 

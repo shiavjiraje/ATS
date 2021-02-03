@@ -64,13 +64,13 @@ const TableWithSearch = (props) => {
                         <React.Fragment>
                             <Row>
                                 <Col md={12} className="">
-                                <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                <button class="btn btn-primary pl-5 pr-5" type="button">Create</button>
+                                <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                <button className="btn btn-primary pl-5 pr-5" type="button">Create</button>
                                 </div>
-                                <input type="text" class="form-control search-style" placeholder="Holiday Name :"/>
-                                <input type="date" class="form-control search-style" placeholder="Date :"/>
-                                <input type="text" class="form-control search-style" placeholder="Day"/>
+                                <input type="text" className="form-control search-style" placeholder="Holiday Name :"/>
+                                <input type="date" className="form-control search-style" placeholder="Date :"/>
+                                <input type="text" className="form-control search-style" placeholder="Day"/>
                                 </div>
                                 </Col>                            
                             </Row>

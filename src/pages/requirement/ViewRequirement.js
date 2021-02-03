@@ -181,14 +181,14 @@ const ViewRequirement = (props) => {
             dataField: 'edit',
             text: 'Edit',
             formatter: (cellContent, row) => {
-                const id = row.jid;
+                //const id = row.jid;
                 return (
                   <button
-                  className="btn btn-primary"
-                    onClick={() => _validateFunction(id)}
+                  className="btn btn-link text-secondary"
+                    onClick={() => _validateFunction(row)}
                     title="Edit"
                   >
-                    Edit
+                   <FeatherIcon.Edit />
                   </button>
                 );
               },
@@ -196,10 +196,10 @@ const ViewRequirement = (props) => {
         }
     ];
     function _validateFunction(row , id) {    
-        console.log("activity id :",(id));
+       // console.log("activity id :",(id));
         // dispatch(getRequirementModal((row)));
 
-        dispatch( setSaveRequirement( row.id ) );
+        dispatch( setSaveRequirement( row) );
 
             dispatch( getRequirementModal() );
     }
@@ -207,10 +207,10 @@ const ViewRequirement = (props) => {
     function actionRequirement(cell, row) {     
         return <label>
                <button type="button" 
-                               id="validatebutton" 
+                               id="actionButton" title="Action"
                        onClick={() => {_validateFunction(row=[])}} 
-                       className="btn btn-primary">
-                           Action
+                       className="btn btn-link text-secondary">
+                            <FeatherIcon.Target />
                </button>
                
                </label> 

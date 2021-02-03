@@ -15,9 +15,9 @@ class SearchResume extends Component {
     render() {
         return (
             <React.Fragment>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6 offset-md-3">
                             <AvForm onValidSubmit={this.handleValidSubmit} className="authentication-form card p-5">
                                 
                             <h5 className="text-uppercase  text-center">Search By Resume</h5>

@@ -7,7 +7,8 @@ const INIT_STATE = {
     requirements: [],
     criticalreq:[],
     requirement: {},
-    loading:false
+    loading:false,
+    jid:'',
 }
 
 export default( state = INIT_STATE, action ) => {

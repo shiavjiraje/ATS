@@ -122,7 +122,7 @@ const CriticalRequirement = () => {
 
     const dispatch = useDispatch(); 
    let records = useSelector((state) => state.Requirements.criticalreq);
-   console.log(records);
+   //console.log("critical ", records);
     useEffect(() => {
         dispatch(getCriticalRequirementList());
 

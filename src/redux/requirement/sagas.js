@@ -24,7 +24,7 @@ function* getRequirementList () {
     }
 }
 function* setSaveRequirement( action ){
-        let result = yield call( api.editRequirement, action.payload, action.jid );
+        let result = yield call( api.getRequirementList, action.payload, action.jid );
         yield put( action.setSaveRequirement( result.data ) );
     
 }
@@ -39,7 +39,7 @@ function* getCriticalRequirementList () {
         const response = yield  call( api.getCriticleRequirementList );
        if (response.data && response.data.Data) {
         yield put( actions.setCriticalRequirement( response.data.Data ) );
-        console.log(response.data, "Critical saga working")
+        //console.log(response.data, "Critical saga working")
        }
        else{
         yield put( actions.setCriticalRequirement( [] ) );
