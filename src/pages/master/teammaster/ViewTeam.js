@@ -5,8 +5,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-
-import { getJoinList } from '../../../redux/list/actions';
+import * as FeatherIcon from 'react-feather';
+import { getTeamList } from '../../../redux/teammaster/actions';
 //import PageTitle from '../../components/PageTitle';
 
 
@@ -98,44 +98,68 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewClient = () => {
+const ViewTeam = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.joinlist);
-  // console.log(records, 'join list');
+   let records = useSelector((state) => state.Teams.teams);
+  console.log(records, 'join list');
     useEffect(() => {
-        dispatch(getJoinList());
+        dispatch(getTeamList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
         {
-            dataField: 'name',
-            text: 'Client Name',
+            dataField: 'teamlead',
+            text: 'Team Lead',
             sort: true,
         },
         {
-            dataField: 'company',
-            text: 'Contact Person Name',
+            dataField: 'teammember',
+            text: 'Total Member',
         },
         {
             dataField: 'email',
-            text: 'Contact Email',
+            text: 'Edit',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary"
+                    onClick={() => _validateFunction(row)}
+                    title="Edit"
+                  >
+                   <FeatherIcon.Edit />
+                  </button>
+                );
+              },
         },
         {
-            dataField: 'email',
-            text: 'Contact Number',
-        },
-        {
-            dataField: 'email',
-            text: 'Date Of Creation',
-        },
-        {
-            dataField: 'Action',
-            text: 'Action',
-        },
+            dataField: 'Delete',
+            text: 'Delete',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary"
+                    onClick={() => _validateFunction(row)}
+                    title="Delete"
+                  >
+                   <FeatherIcon.Trash2 />
+                  </button>
+                );
+              },
+        }
     ];
+    function _validateFunction(row , id) {    
+        // console.log("activity id :",(id));
+         // dispatch(getRequirementModal((row)));
+ 
+         //dispatch( setSaveRequirement( row) );
+ 
+          //   dispatch( getRequirementModal() );
+     }
     return (
         <React.Fragment>
             <Row>
@@ -147,6 +171,6 @@ const ViewClient = () => {
     );
 };
 
-export default ViewClient;
+export default ViewTeam;
 
 

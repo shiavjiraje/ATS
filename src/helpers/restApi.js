@@ -86,7 +86,21 @@ export const getMonthToBeJoinList = () => {
 export const getAtsActivityList = () => {
    return api.get( '/ActivityMaster' );
 };
-
+//Team master
+export const getTeamList = () => {
+   return api.get( '/TeamMaster' );
+};
+//User master 
+export const getUserList = () => {
+   return api.get( '/User_Master' );
+};
+export const setUser = (user) => {
+   return api.post( '/User_Master',user);
+};
+//Role master 
+export const getRoleList = () => {
+   return api.get( '/UserRole_Master' );
+};
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
     return api.get( '/Requirement_Master' );

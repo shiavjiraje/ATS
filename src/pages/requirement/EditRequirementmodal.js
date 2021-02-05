@@ -32,7 +32,7 @@ const EditRequirementmodal = (props, row) => {
       // eslint-disable-next-line
     }, [requirmentStore] );
 
-    //console.log("Edit Requirement id :", requirmentStore);
+    console.log("Edit Requirement id :", requirmentStore);
     const toggle = () => {
         if (!modal) {
             dispatch(actions.getRequirementModal());

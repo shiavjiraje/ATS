@@ -11,9 +11,9 @@ const AddClient = () => {
                                 <Row>
                             <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoApellidos">Client Name</Label>
+                                    <Label for="empleadoApellidos">Client Name<span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -24,9 +24,9 @@ const AddClient = () => {
                         <Row>
                         <Col lg={4}>
                                 <FormGroup>
-                                <Label for="empleadoNombre">Contact person 1</Label>
+                                <Label for="empleadoNombre">Contact Person <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -34,9 +34,9 @@ const AddClient = () => {
                             </Col>
                         <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoNombre">Email</Label>
+                                    <Label for="empleadoNombre">Email <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="email" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -44,9 +44,9 @@ const AddClient = () => {
                             </Col>
                             <Col lg={4}>
                                 <FormGroup>
-                                <Label for="empleadoNombre">Number</Label>
+                                <Label for="empleadoNombre">Number <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -56,9 +56,9 @@ const AddClient = () => {
                         <Row>
                         <Col lg={4}>
                                 <FormGroup>
-                                <Label for="empleadoNombre">Contact person 2</Label>
+                                <Label for="empleadoNombre">Contact person <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -66,9 +66,9 @@ const AddClient = () => {
                             </Col>
                         <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoNombre">Email</Label>
+                                    <Label for="empleadoNombre">Email <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -76,9 +76,9 @@ const AddClient = () => {
                             </Col>
                             <Col lg={4}>
                                 <FormGroup>
-                                <Label for="empleadoNombre">Number</Label>
+                                <Label for="empleadoNombre">Number <span className="redspan">*</span></Label>
                                     <Input
-                                        type="text"
+                                        type="text" required
                                         className="style-input"
                                         id="jobcode"
                                         name="jobcode" />
@@ -87,19 +87,19 @@ const AddClient = () => {
                         </Row>
                         <Row>
                         <Col lg={12}>
-                            <Label>Address</Label>
+                            <Label>Address <span className="redspan">*</span></Label>
                             <textarea
                                 className="form-control style-input"
-                                rows="3"
+                                rows="3" required
                                 name="jjd"></textarea>
                         </Col>
                     </Row>
                         <Row className="mt-4">                            
                             <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoNombre">Type</Label>
+                                    <Label for="empleadoNombre">Type <span className="redspan">*</span></Label>
                                     <select
-                                        type="text"
+                                        type="text" required
                                         className="style-input form-control"
                                         id="jobcode"
                                         name="jobcode" ></select>
@@ -107,9 +107,9 @@ const AddClient = () => {
                             </Col>  
                             <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoNombre">Segment</Label>
+                                    <Label for="empleadoNombre">Segment <span className="redspan">*</span></Label>
                                     <select
-                                        type="text"
+                                        type="text" required
                                         className="style-input form-control"
                                         id="jobcode"
                                         name="jobcode" ></select>
@@ -117,9 +117,9 @@ const AddClient = () => {
                             </Col>    
                             <Col lg={4}>
                                 <FormGroup>
-                                    <Label for="empleadoNombre">Margin Type</Label>
+                                    <Label for="empleadoNombre">Margin Type <span className="redspan">*</span></Label>
                                     <select
-                                        type="text"
+                                        type="text" required
                                         className="style-input form-control"
                                         id="jobcode"
                                         name="jobcode" ></select>

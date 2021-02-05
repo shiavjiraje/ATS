@@ -1,36 +1,60 @@
-import { takeEvery, takeLatest, call, fork, put } from 'redux-saga/effects';
-import * as api from './service';
-import * as action from './actions';
-function * getUsers(){
-    try{
-        const result = yield call(api.getUsers);
-        console.log(result)
-        yield put(action.getUserSuccess({
-            items:result.data
-        }));
-    }
-    catch(e){
-       console.log('e== getUsers saga ==',e);
-    }
-}
-function * watchGetUsersRequest(){
-    yield takeEvery(action.Types.GET_USERS_REQUEST, getUsers);
-}
-function * createUser(action){
-    try{
-        yield call(api.createUser, {firstName:action.payload.firstName, lastName:action.payload.lastName});
-        yield call(getUsers);
-    }
-    catch{
+import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import * as api from '../../helpers/restApi';
+import * as actions from './actions';
+import swal from 'sweetalert';
+import {
+    ADD_USER,
+    GET_USER_LIST_REQUEST,
+    //SET_USER_LIST_REQUEST
+} from './constants'
 
+
+function* getUserList () {
+    try {
+        const response = yield  call( api.getUserList );
+       if (response.data && response.data.Data) {
+        yield put( actions.getUser( response.data.Data ) );
+        //console.log(response.data, "Require saga working")
+       }
+       else{
+        yield put( actions.getUser( [] ) );
+       }
+    } catch (error) {
+        console.log(error);
     }
 }
-function * watchCreateUsersRequest(){
-    yield takeLatest(action.Types.CREATE_USERS_REQUEST, createUser);
+function* setUser( action ){
+    try {
+        const result = yield call( api.setUser, action.payload );
+        yield put( actions.setUserRquest( result.data ) );
+        yield call( getUserList );
+        console.log(result.data);
+        // swal({
+        //     title: "User Created Successfully",
+        //     text: "User Created Successfully",
+        //     icon: "success",
+        //   });
+    } catch (error) {
+        console.log(error);
+        swal({
+            title: error,
+            text: error,
+            icon: "Warning",
+          });
+       
+    }
 }
-const userSaga = [
-    fork(watchGetUsersRequest),
-    fork(watchCreateUsersRequest)
-]
+function* watchGetUserRequest(){
+    yield takeEvery( GET_USER_LIST_REQUEST, getUserList );
+}
+function* watchSetUser(){
+    yield takeEvery( ADD_USER, setUser );
+}
+function* userSagas() {
+    yield all([
+        fork( watchGetUserRequest ),
+        fork( watchSetUser ),
+    ]);
+}
 
-export default userSaga;
+export default userSagas;

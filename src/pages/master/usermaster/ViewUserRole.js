@@ -5,8 +5,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-
-import { getJoinList } from '../../../redux/list/actions';
+import * as FeatherIcon from 'react-feather';
+import { getRoleList } from '../../../redux/role/actions';
 //import PageTitle from '../../components/PageTitle';
 
 
@@ -101,10 +101,10 @@ const TableWithSearch = (props) => {
 const ViewUserRole = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.joinlist);
+   let records = useSelector((state) => state.Role.role);
   // console.log(records, 'join list');
     useEffect(() => {
-        dispatch(getJoinList());
+        dispatch(getRoleList());
 
         // eslint-disable-next-line 
     }, []);
@@ -112,19 +112,40 @@ const ViewUserRole = () => {
     const columns = [
       
         {
-            dataField: 'name',
+            dataField: 'username',
             text: 'Employee Name',
             sort: true,
         },
         {
-            dataField: 'company',
+            dataField: 'role',
             text: 'Role',
         },
         {
-            dataField: 'designation',
-            text: 'Delete',
-        }
+            dataField: 'email',
+            text: 'Edit',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary"
+                    onClick={() => _validateFunction(row)}
+                    title="Edit"
+                  >
+                   <FeatherIcon.Edit />
+                  </button>
+                );
+              },
+        },
     ];
+    
+    function _validateFunction(row , id) {    
+        // console.log("activity id :",(id));
+         // dispatch(getRequirementModal((row)));
+ 
+         //dispatch( setSaveRequirement( row) );
+ 
+          //   dispatch( getRequirementModal() );
+     }
     return (
         <React.Fragment>
             <Row>

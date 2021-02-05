@@ -802,7 +802,13 @@ label {
 }
 .table th, .table td {
     border-top: none;
+    // padding: 5px 5px;
+    // vertical-align: middle;
+    text-align: left;
     border-bottom: 1px solid #212429;
+}
+.table th{
+    //padding: 10px 5px;
 }
 .upbtn{
     padding: 11px;
@@ -833,4 +839,17 @@ label {
     border-bottom: none !important;
     color: #f14e01 !important;
     background: transparent !important;
+}
+// td button svg{
+//     height: 18px;
+//     width: 18px;
+// }
+// td button i{
+//     font-size: 18px;
+// }
+td button:hover svg {
+    color: #f14e01;
+}
+td button:hover i {
+    color: #f14e01;
 }

@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import MasterNav from './usermaster/MasterNav';
 import PageTitle from '../../components/PageTitle';
 import ClientTabs from './clientmaster/ClientNav';
+import TeamTabs from './teammaster/TeamNav';
 const Masters = (props) => {
   const [activeTab, setActiveTab] = useState('1');
 
@@ -60,7 +61,7 @@ const Masters = (props) => {
          <ClientTabs/>
         </TabPane>
         <TabPane tabId="3">
-          {/* <JoinList/> */}
+         <TeamTabs/>
         </TabPane >
       </TabContent>
       

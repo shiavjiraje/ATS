@@ -5,10 +5,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-
-import { getJoinList } from '../../../redux/list/actions';
+import { getClientList } from '../../../redux/client/actions';
 //import PageTitle from '../../components/PageTitle';
-
+//import * as FeatherIcon from 'react-feather';
 
 
 const defaultSorted = [
@@ -101,41 +100,61 @@ const TableWithSearch = (props) => {
 const ViewClient = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.joinlist);
+    let records = useSelector((state) => state.Client.clients || []);
   // console.log(records, 'join list');
     useEffect(() => {
-        dispatch(getJoinList());
+        dispatch(getClientList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
         {
-            dataField: 'name',
+            dataField: 'cname',
             text: 'Client Name',
             sort: true,
         },
         {
-            dataField: 'company',
+            dataField: 'cperson1',
             text: 'Contact Person Name',
         },
         {
-            dataField: 'email',
+            dataField: 'cemail1',
             text: 'Contact Email',
         },
         {
-            dataField: 'email',
+            dataField: 'ccnt1',
             text: 'Contact Number',
         },
         {
-            dataField: 'email',
+            dataField: 'cdate',
             text: 'Date Of Creation',
         },
         {
             dataField: 'Action',
             text: 'Action',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                    <button type="button" 
+                    id="actionButton" title="Action"
+                onClick={() => {_validateFunction(row=[])}} 
+                className="btn btn-link text-secondary">
+                 {/* <FeatherIcon.Target /> */}
+                 <i className="uil uil-file-exclamation-alt"></i>
+                </button>
+                );
+              },
         },
     ];
+    function _validateFunction(row , id) {    
+        // console.log("activity id :",(id));
+         // dispatch(getRequirementModal((row)));
+ 
+         //dispatch( setSaveRequirement( row) );
+ 
+          //   dispatch( getRequirementModal() );
+     }
     return (
         <React.Fragment>
             <Row>

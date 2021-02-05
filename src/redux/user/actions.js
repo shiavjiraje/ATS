@@ -1,22 +1,27 @@
-export const Types ={
-  GET_USERS_REQUEST:'users/get_users_request',
-  GET_USERS_SUCCESS:'users/get_users_success',
-  CREATE_USERS_REQUEST:'users/create_users_request'
-}
-export const getUsersRequest =()=>({
-  type:Types.GET_USERS_REQUEST
+
+import {GET_USER_LIST_REQUEST, 
+   SET_USER_LIST_REQUEST, ADD_USER, ADD_USER_REQUEST, GET_ERROR} from './constants';
+
+
+export const getUserList =()=>({
+  type:GET_USER_LIST_REQUEST,
+  
 })
 
-export const getUserSuccess = ({items}) =>({
-  type: Types.GET_USERS_SUCCESS,
-  payload:{
-      items
-  }
-});
-export const createUsersRequest=(firstName, lastName)=>({
-  type:Types.CREATE_USERS_REQUEST,
-  payload:{
-      firstName,
-      lastName
-  }
-})
+export const getUser = ( users ) => ( {
+  type: SET_USER_LIST_REQUEST,
+  payload: users
+} );
+
+export const setUser = ( user ) => ( {
+  type: ADD_USER,
+  payload: user
+} );
+export const setUserRquest = ( user ) => ( {
+  type: ADD_USER_REQUEST,
+  payload: user
+} );
+export const getError = ( error ) => ( {
+  type: GET_ERROR,
+  payload: error
+} );

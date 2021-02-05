@@ -30,9 +30,20 @@ const AddRequirement = (props) => {
     const [jemptypePost, setJemployementtyp] = useState([]);
     //const [jassignuserPost, setJassignuser] = useState([]);
     const [selectedValue, setSelectedValue] = useState([]);
-    const handleMultiChange = (e) => {
-        setSelectedValue(Array.isArray(e) ? e.map(x => x.value) : []);
-      }
+
+    const onSelect=(selectedList, selectedItem)=> {
+        setSelectedValue(selectedList.map(x=>x.EFullname));
+    }
+    
+    const onRemove=(selectedList, removedItem)=> {
+        setSelectedValue(selectedList.map(x=>x.EFullname));
+    }
+
+    // const handleMultiChange = (e) => {
+    //     console.log("console EE", e);
+    //     setSelectedValue(Array.isArray(e) ? e.map(x => x.value) : []);
+    //     console.log("selected value", selectedValue);
+    //   }
     const handleRequirementForm = (e) => {
         e.preventDefault();
         let reqBody = {
@@ -487,9 +498,11 @@ const AddRequirement = (props) => {
                             // onChange={(e) => {
                             //     setJassignuser(e.target.value); console.log(e.target.value)
                             // }}
-                            value={recruterList.filter(obj => selectedValue.includes(obj.value))} // set selected values
+                            //value={recruterList.filter(obj => selectedValue.includes(obj.value))} // set selected values
         //options={data} // set list of the data
-        onChange={handleMultiChange}
+        // onChange={(e)=> handleMultiChange(e)}
+        onSelect={onSelect}
+        onRemove={onRemove}
                             name="jassignuser"
                             displayValue="EFullname"
                             showCheckbox={true}

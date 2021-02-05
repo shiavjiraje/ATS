@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
 import classnames from 'classnames';
-import AddClient from './AddClient';
-import ViewClient from './ViewClient';
+import AddTeam from './AddTeam';
+import ViewTeam from './ViewTeam';
 
-const ClientTabs = (props) => {
+const TeamTabs = (props) => {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -19,7 +19,7 @@ const ClientTabs = (props) => {
             className={classnames({ active: activeTab === '1' })}
             onClick={() => { toggle('1'); }}
           >
-            Add Client
+            Create Team
           </NavLink>
         </NavItem>
         <NavItem >
@@ -27,17 +27,17 @@ const ClientTabs = (props) => {
             className={classnames({ active: activeTab === '2' })}
             onClick={() => { toggle('2'); }}
           >
-            View Client
+            View Team
           </NavLink>
         </NavItem>
       </Nav>
       <TabContent className="req-tab-content" activeTab={activeTab}>
         <TabPane tabId="1">
          
-             <AddClient/>
+             <AddTeam/>
         </TabPane>
         <TabPane tabId="2">
-         <ViewClient/> 
+         <ViewTeam/> 
         </TabPane>
       </TabContent>
       
@@ -45,4 +45,4 @@ const ClientTabs = (props) => {
   );
 }
 
-export default ClientTabs;
+export default TeamTabs;
