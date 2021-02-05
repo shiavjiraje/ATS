@@ -109,7 +109,7 @@ const hrRoutes = {
 // Master
 
 const masterRoutes = {
-    path: '/master/user',
+    path: '/master',
     name: 'Master',
     icon: FeatherIcon.FileText,
     component: Masters,
