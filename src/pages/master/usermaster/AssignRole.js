@@ -1,10 +1,10 @@
-import axios from 'axios';
+
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, FormGroup, Form, Label} from 'reactstrap';
 //import { getRecruiterList } from '../../../redux/recruiter/actions';
 import { getUserList } from '../../../redux/user/actions';
-import { getRoleList } from '../../../redux/role/actions';
+import { createRole, getRoleList } from '../../../redux/role/actions';
 // import Select from 'react-select';
 const AssignRole = () => {
 
@@ -27,12 +27,7 @@ const AssignRole = () => {
             uid:uid ,
             role:role
         };
-        axios
-            .post('http://144.48.250.235:98/api/UserRole_Master', reqBody)
-            .then((response) => {
-               console.log(response);
-            });
-           e.target.reset();
+        dispatch(createRole(reqBody));
     }
     
     return (

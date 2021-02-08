@@ -1,7 +1,8 @@
-import {GET_TEAM_LIST_REQUEST,  SET_TEAM_LIST_REQUEST} from './constants'
+import {CREATE_TEAM_SUCCESS, GET_TEAM_LIST_REQUEST,  SET_TEAM_LIST_REQUEST} from './constants'
 
 const INIT_STATE = {
     teams: [],
+    createteam:{},
     loading:false
 }
 
@@ -19,6 +20,12 @@ export default( state = INIT_STATE, action ) => {
                 teams: action.payload,
                 loading:false
             };
+            case  CREATE_TEAM_SUCCESS:
+                return{
+                    ...state,
+                    createteam: action.payload,
+                    loading:false
+                };
         default:
             return state;
     }

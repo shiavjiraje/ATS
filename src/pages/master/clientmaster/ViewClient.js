@@ -7,7 +7,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import { getClientList } from '../../../redux/client/actions';
 //import PageTitle from '../../components/PageTitle';
-//import * as FeatherIcon from 'react-feather';
+import * as FeatherIcon from 'react-feather';
 
 
 const defaultSorted = [
@@ -140,8 +140,8 @@ const ViewClient = () => {
                     id="actionButton" title="Action"
                 onClick={() => {_validateFunction(row=[])}} 
                 className="btn btn-link text-secondary">
-                 {/* <FeatherIcon.Target /> */}
-                 <i className="uil uil-file-exclamation-alt"></i>
+                 <FeatherIcon.Target />
+                 {/* <i className="uil uil-file-exclamation-alt"></i> */}
                 </button>
                 );
               },

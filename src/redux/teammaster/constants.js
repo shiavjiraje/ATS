@@ -1,5 +1,8 @@
 
-/** List of Client */
+/** List of Team */
 export const GET_TEAM_LIST_REQUEST = 'GET_TEAM_LIST_REQUEST';
 export const SET_TEAM_LIST_REQUEST = 'SET_TEAM_LIST_REQUEST';
 
+//Add Team
+export const CREATE_TEAM = 'CREATE_TEAM';
+export const CREATE_TEAM_SUCCESS = 'CREATE_TEAM_SUCCESS';

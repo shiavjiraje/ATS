@@ -102,7 +102,7 @@ const ViewTeam = () => {
 
     const dispatch = useDispatch(); 
    let records = useSelector((state) => state.Teams.teams);
-  console.log(records, 'join list');
+  //console.log(records, 'join list');
     useEffect(() => {
         dispatch(getTeamList());
 

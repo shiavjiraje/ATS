@@ -1,7 +1,7 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import {
     ADD_USER,
     GET_USER_LIST_REQUEST,
@@ -29,18 +29,8 @@ function* setUser( action ){
         yield put( actions.setUserRquest( result.data ) );
         yield call( getUserList );
         console.log(result.data);
-        // swal({
-        //     title: "User Created Successfully",
-        //     text: "User Created Successfully",
-        //     icon: "success",
-        //   });
     } catch (error) {
         console.log(error);
-        swal({
-            title: error,
-            text: error,
-            icon: "Warning",
-          });
        
     }
 }

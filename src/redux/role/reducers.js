@@ -1,8 +1,9 @@
-import {GET_ROLE_LIST_REQUEST,  SET_ROLE_LIST_REQUEST} from './constants'
+import { CREATE_ROLE_SUCCESS, GET_ROLE_LIST_REQUEST,  SET_ROLE_LIST_REQUEST} from './constants'
 
 const INIT_STATE = {
     role: [],
-    loading:false
+    loading:false,
+    createrole:{},
 }
 
 export default( state = INIT_STATE, action ) => {
@@ -17,6 +18,12 @@ export default( state = INIT_STATE, action ) => {
             return{
                 ...state,
                 role: action.payload,
+                loading:false
+            };
+            case  CREATE_ROLE_SUCCESS:
+            return{
+                ...state,
+                createrole: action.payload,
                 loading:false
             };
         default:

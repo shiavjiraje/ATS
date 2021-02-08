@@ -16,8 +16,8 @@ import api from './axios';
    return api.get( '/client_master' );
 };
 
-export const setClient = ( clients ) => {
-   return api.post( '/client_master', clients );
+export const setClient = ( createclients ) => {
+   return api.post( '/client_master', createclients );
 };
 export const getRecruiterList = () => {
    return api.get( '/Recruiter_Mst' );
@@ -90,6 +90,9 @@ export const getAtsActivityList = () => {
 export const getTeamList = () => {
    return api.get( '/TeamMaster' );
 };
+export const setTeam = (createteam) => {
+   return api.post( '/TeamMaster',createteam );
+};
 //User master 
 export const getUserList = () => {
    return api.get( '/User_Master' );
@@ -100,6 +103,10 @@ export const setUser = (user) => {
 //Role master 
 export const getRoleList = () => {
    return api.get( '/UserRole_Master' );
+};
+//Role master 
+export const createRole = (createrole) => {
+   return api.post( '/UserRole_Master',createrole );
 };
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
