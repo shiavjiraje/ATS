@@ -10,7 +10,7 @@ import { loginUser } from '../../redux/actions';
 import { isUserAuthenticated } from '../../helpers/authUtils';
 import Loader from '../../components/Loader';
 import logo from '../../assets/images/logo.png';
-import logo2 from '../../assets/images/logo2.png';
+//import logo2 from '../../assets/images/logo2.png';
 
 class Login extends Component {
     _isMounted = false;
@@ -21,7 +21,8 @@ class Login extends Component {
         this.handleValidSubmit = this.handleValidSubmit.bind(this);
         this.state = {
             username: 'test',
-            password: 'test'
+            password: 'test',
+            rememberme:true
         }
     }
 
@@ -40,7 +41,7 @@ class Login extends Component {
      * Handles the submit
      */
     handleValidSubmit = (event, values) => {
-        this.props.loginUser(values.username, values.password, this.props.history);
+        this.props.loginUser(values.username, values.password, values.rememberme=true, this.props.history);
     }
 
 
@@ -77,16 +78,16 @@ class Login extends Component {
                                                 <div className="card shadow p-4">
                                                 {this.props.loading && <Loader />}
                                                 <div className="row">
-                                                <div className="col-sm-6 mb-5">
+                                                <div className="col-sm-12 mb-5">
                                                     <a href="/">
                                                         <img src={logo} alt="" className="logo1" />
                                                     </a>
                                                 </div>
-                                                <div className="col-sm-6 mb-5">
+                                                {/* <div className="col-sm-6 mb-5">
                                                     <a href="/">
                                                         <img src={logo2} alt="" className="logo2 img-brd2"  />
                                                     </a>
-                                                </div>
+                                                </div> */}
                                                 </div>
                                                 <h6 className="h5 mb-0 mt-2">Welcome back!</h6>
 
@@ -124,8 +125,8 @@ class Login extends Component {
                                                         <AvFeedback>This field is invalid</AvFeedback>
                                                     </AvGroup>
                                                     <div className="form-check mt-2">
-                                                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                                        <label className="form-check-label" htmlFor="exampleCheck1">Remember Me</label>
+                                                        <input type="checkbox" className="form-check-input" id="rememberme" name="rememberme" value={this.state.rememberme}/>
+                                                        <label className="form-check-label" htmlFor="rememberme">Remember Me</label>
                                                         <Link to="/account/forget-password" className="float-right text-muted text-unline-dashed ml-1">Forgot your password?</Link>
                                                     </div>
                                                     

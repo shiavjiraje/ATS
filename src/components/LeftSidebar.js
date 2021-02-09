@@ -13,7 +13,7 @@ import AppMenu from './AppMenu';
 import profilePic from '../assets/images/users/avatar-7.jpg';
 
 import logo from '../assets/images/logo.png';
-import logo2 from '../assets/images/logo2.png';
+//import logo2 from '../assets/images/logo2.png';
 
 /**
  * User Widget
@@ -23,11 +23,11 @@ const UserProfile = () => {
         <div style={{background:'#e5e5e5', padding:'8px 0px'}}>
         <Link to="/" className="">
               <span className="logo-lg ml-2">
-                <img src={logo} alt="" height="55" className="img-brd" />
+                <img src={logo} alt="" height="47" />
               </span>
-              <span className="logo-sm mr-2 float-right">
+              {/* <span className="logo-sm mr-2 float-right">
                 <img src={logo2} alt="" height="40" />
-              </span>
+              </span> */}
             </Link>
             </div>
         <div className="media user-profile mt-2 mb-2">

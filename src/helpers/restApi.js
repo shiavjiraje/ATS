@@ -110,7 +110,7 @@ export const createRole = (createrole) => {
 };
 //leave
 export const getLeave = () => {
-   return api.get( '/LeaveMaster', );
+   return api.get( 'LeaveMaster?username=ajay.zala@archesoftronix.com', );
 };
 //holiday
 export const getHoliday = () => {

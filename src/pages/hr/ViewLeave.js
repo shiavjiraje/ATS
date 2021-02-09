@@ -5,7 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import { getListList } from '../../redux/list/actions';
+import { getLeaveList } from '../../redux/leave/actions';
 //import PageTitle from '../../components/PageTitle';
 
 const defaultSorted = [
@@ -97,49 +97,49 @@ const TableWithSearch = (props) => {
 const ViewLeave = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.list);
+   let records = useSelector((state) => state.Leave.leave);
     useEffect(() => {
-        dispatch(getListList());
+        dispatch(getLeaveList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
         {
-            dataField: 'd.R_Name',
+            dataField: 'id',
             text: 'Name.',
         },
         {
-            dataField:'e.J_Client_Id',
+            dataField:'type',
             text:"Type"
         },
         {
-            dataField: 'e.J_Skill',
+            dataField: 'noofdays',
             text: 'No. Of days',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'reason',
             text: 'Reason',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'startdate',
             text: 'Start Date',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'enddate',
             text: 'End Date',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'leadstatus',
             text: 'TL Status',
         },
         {
-            dataField: 'g.E_Fullname',
+            dataField: 'managerstatus',
             text: 'Manager Status',
             
         },  
         {
-            dataField: 'c.O_Status',
+            dataField: 'adminstatus',
             text: 'HR Status',
         }
     ];
