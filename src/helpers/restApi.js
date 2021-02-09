@@ -108,6 +108,14 @@ export const getRoleList = () => {
 export const createRole = (createrole) => {
    return api.post( '/UserRole_Master',createrole );
 };
+//leave
+export const getLeave = () => {
+   return api.get( '/LeaveMaster', );
+};
+//holiday
+export const getHoliday = () => {
+   return api.get( '/HolidayMaster', );
+};
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
     return api.get( '/Requirement_Master' );
@@ -120,7 +128,7 @@ export const getDepartamentosList = () =>{
 /** Auth */
 export const loginUser = ( token ) => {
    return api.post( '/login', {'GUID': token} );
-};
+}; 
 
 export const getUserImage = ( userId ) => {
    return api.post( '/auth/userimage', { 'id': userId } );

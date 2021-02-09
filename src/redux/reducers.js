@@ -13,6 +13,8 @@ import List from './list/reducers';
 import Activity from './activity/reducers';
 import Teams from './teammaster/reducers';
 import Role from './role/reducers';
+import Leave from './leave/reducers';
+import Holiday from './holiday/reducers';
 export default combineReducers({
     Auth,
     AppMenu,
@@ -25,5 +27,7 @@ export default combineReducers({
     List,
     Activity,
     Teams,
-    Role
+    Role,
+    Leave,
+    Holiday
 });

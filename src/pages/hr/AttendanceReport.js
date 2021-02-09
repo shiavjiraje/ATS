@@ -7,7 +7,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 //import * as FeatherIcon from 'react-feather';
-import { getListList } from '../../redux/list/actions';
+import { getAttendanceList } from '../../redux/attendance/actions'; 
 //import PageTitle from '../../components/PageTitle';
 
 const defaultSorted = [
@@ -101,37 +101,37 @@ const TableWithSearch = (props) => {
 const AttendanceReport = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.list);
-   console.log(records)
+    let records = useSelector((state) => state.Attendance.attendance);
+   //console.log(records)
     useEffect(() => {
-        dispatch(getListList());
+        dispatch(getAttendanceList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
         {
-            dataField: 'd.R_Name',
+            dataField: 'aname',
             text: 'Name.',
         },
         {
-            dataField:'d.R_Name',
+            dataField:'intime',
             text:"In Time"
         },
         {
-            dataField: 'e.J_Skill',
+            dataField: 'inip',
             text: 'IP',
         },
         {
-            dataField: 'e.J_Skill',
+            dataField: 'outtime',
             text: 'Out Time',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'outip',
             text: 'IP',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'atime',
             text: 'Total Time',
         }
     ];

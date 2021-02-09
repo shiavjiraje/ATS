@@ -1,0 +1,5 @@
+
+/** List of Client */
+export const GET_HOLIDAY_LIST_REQUEST = 'GET_HOLIDAY_LIST_REQUEST';
+export const SET_HOLIDAY_LIST_REQUEST = 'SET_HOLIDAY_LIST_REQUEST';
+

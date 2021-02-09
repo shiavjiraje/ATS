@@ -7,7 +7,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 //import * as FeatherIcon from 'react-feather';
-import { getListList } from '../../redux/list/actions';
+import { getHolidayList } from '../../redux/holiday/actions';
 //import PageTitle from '../../components/PageTitle';
 
 const defaultSorted = [
@@ -106,29 +106,29 @@ const TableWithSearch = (props) => {
 const Holidays = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.List.list);
+   let records = useSelector((state) => state.Holiday.holiday);
    console.log(records)
     useEffect(() => {
-        dispatch(getListList());
+        dispatch(getHolidayList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
         {
-            dataField: 'd.R_Name',
+            dataField: 'name',
             text: 'Holiday Name.',
         },
         {
-            dataField:'e.J_Skill',
+            dataField:'date',
             text:"Date"
         },
         {
-            dataField: 'e.J_Skill',
+            dataField: 'day',
             text: 'Day',
         },
         {
-            dataField: 'e.J_Location',
+            dataField: 'type',
             text: 'Type',
         }
     ];

@@ -12,6 +12,8 @@ import listSagas from './list/sagas';
 import activitySagas from './activity/sagas';
 import teamSagas from './teammaster/sagas';
 import roleSagas from './role/sagas';
+import leaveSagas from './leave/sagas';
+import holidaySagas from './holiday/sagas';
 export default function* rootSaga(getState: any): any {
     yield all( [
         authSaga(), 
@@ -26,5 +28,7 @@ export default function* rootSaga(getState: any): any {
        activitySagas(),
        teamSagas(),
        roleSagas(),
+       leaveSagas(),
+       holidaySagas(),
     ] );
 }

@@ -7,7 +7,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import {UncontrolledDropdown, DropdownMenu, DropdownToggle, Button } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
-import { getAttendanceList } from '../../redux/attendance/actions';
+import { getAttendanceList } from '../../redux/attendance/actions'; 
 import PageTitle from '../../components/PageTitle';
 
 // const defaultSorted = [
@@ -125,14 +125,6 @@ const Attendance = () => {
 
     const columns = [
         {
-            dataField: 'date',
-            text: 'Date.',
-        },
-        {
-            dataField: 'day',
-            text: 'Day',
-        }, 
-        {
             dataField: 'intime',
             text: 'In Time',
         }, 
@@ -141,17 +133,9 @@ const Attendance = () => {
             text: 'Out Time',
         }, 
         {
-            dataField: 'totaltime',
+            dataField: 'atime',
             text: 'Total Time',
-        }, 
-        {
-            dataField: 'status',
-            text: 'Status',
-        }, 
-        {
-            dataField: 'leavebalance',
-            text: 'Leave Balance',
-        }, 
+        }
     ];
 
     return (
