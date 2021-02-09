@@ -22,7 +22,7 @@ class Login extends Component {
         this.state = {
             username: 'test',
             password: 'test',
-            rememberme:true
+            rememberme:false
         }
     }
 
@@ -41,7 +41,7 @@ class Login extends Component {
      * Handles the submit
      */
     handleValidSubmit = (event, values) => {
-        this.props.loginUser(values.username, values.password, values.rememberme=true, this.props.history);
+        this.props.loginUser(values.username, values.password, values.rememberme, this.props.history);
     }
 
 
@@ -54,7 +54,10 @@ class Login extends Component {
             return <Redirect to='/' />
         }
     }
-
+    handleCheckboxChange = event =>{
+    alert('');
+    this.setState({ checked: event.target.checked });
+    }
     render() {
         const isAuthTokenValid = isUserAuthenticated();
         return (
@@ -125,7 +128,7 @@ class Login extends Component {
                                                         <AvFeedback>This field is invalid</AvFeedback>
                                                     </AvGroup>
                                                     <div className="form-check mt-2">
-                                                        <input type="checkbox" className="form-check-input" id="rememberme" name="rememberme" value={this.state.rememberme}/>
+                                                        <input type="checkbox" className="form-check-input" id="rememberme" name="rememberme" onChange={this.handleCheckboxChange} defaultChecked={this.state.rememberme} value={this.state.rememberme}/>
                                                         <label className="form-check-label" htmlFor="rememberme">Remember Me</label>
                                                         <Link to="/account/forget-password" className="float-right text-muted text-unline-dashed ml-1">Forgot your password?</Link>
                                                     </div>

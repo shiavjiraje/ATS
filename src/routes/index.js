@@ -8,6 +8,9 @@ import Hr from '../pages/hr/Hr';
 import Attendance from '../pages/attendance/Attedance';
 import Activity from '../pages/acyivity/Activity';
 import ViewUser from '../pages/master/usermaster/ViewUser';
+
+//clientwisesales
+import clientwisesales from '../pages/clientwisesales/ClientWiseSales';
 // auth
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Logout = React.lazy(() => import('../pages/auth/Logout'));
@@ -128,7 +131,7 @@ const clientWiseSalesRoutes = {
     path: '/clientwisesales',
     name: 'Client Wise Sales',
     icon: FeatherIcon.User,
-    component: dashboardOld,
+    component: clientwisesales,
     route: PrivateRoute,
     roles: ['Admin'],
 };

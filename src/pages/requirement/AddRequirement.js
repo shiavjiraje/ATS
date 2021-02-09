@@ -478,7 +478,7 @@ const AddRequirement = (props) => {
                         </FormGroup>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mt-2">
                     <Col lg={12}>
                         <Label>Description</Label>
                         <textarea
@@ -490,26 +490,18 @@ const AddRequirement = (props) => {
                             name="jjd"></textarea>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mt-3">
                     <Col lg={6} className="mb-5">
                         <h5 className="text-uppercase mt-4">Assign To :</h5>
                         <Multiselect
                             options={recruterList}
-                            // onChange={(e) => {
-                            //     setJassignuser(e.target.value); console.log(e.target.value)
-                            // }}
-                            //value={recruterList.filter(obj => selectedValue.includes(obj.value))} // set selected values
-        //options={data} // set list of the data
-        // onChange={(e)=> handleMultiChange(e)}
-        onSelect={onSelect}
-        onRemove={onRemove}
+                            onSelect={onSelect}
+                            onRemove={onRemove}
                             name="jassignuser"
                             displayValue="EFullname"
                             showCheckbox={true}
                             />
-                            {selectedValue && <div style={{ marginTop: 20, lineHeight: '25px' }}>
-        <div><b>Selected Value: </b> {JSON.stringify(selectedValue, null, 2)}</div>
-      </div>}
+                          
                         {/* {recruterList.map((recruter, index) => (
                             <div className="form-check mt-1">
                                 <label className="form-check-label">

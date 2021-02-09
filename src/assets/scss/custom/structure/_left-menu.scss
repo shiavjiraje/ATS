@@ -654,8 +654,9 @@
     text-align: center;
 }
 .avatar-sm {
-    height: 4.5rem !important;
-    width: 4.5rem !important;
+    height: 5rem !important;
+    width: 5rem !important;
+    margin-top: 20px;
 }
 .page-title {
     background: #e5e5e5;
@@ -677,6 +678,9 @@ body {
     font-weight: bold;
     padding-right: 2rem !important;
     text-transform: uppercase;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: #212529; 
 }
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus{
     color: #f14e01;
@@ -714,10 +718,12 @@ body {
     border: none;
     border-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
+    //margin: 0px 30px;
 }
 
 .requirement-tab {
     border-bottom: none !important;
+    padding: 31px 0px !important;
     // display: grid;
     // grid-template-columns: auto auto auto;
     // margin-left: 12px;
@@ -743,8 +749,8 @@ body {
 }
 .requirement-tab .nav-link:hover{
 background-color: #f14e01;
+border: 1px solid #f14e01 !important;
 color: #ffffff;
-border: none !important;
 }
 .style-input, .data-table-extensions > .data-table-extensions-filter > .filter-text {
     background: transparent;
@@ -765,10 +771,9 @@ border: none !important;
 .redspan{
     color: red;
 }
-// .req-tab-content {
-//     width: 98%;
-//     margin: 0px auto;
-// }
+.req-tab-content {
+    padding: 30px 0 0 0;
+}
 label {
     font-weight: 500;
 }
@@ -782,6 +787,7 @@ label {
 }
 .table{
     color: #212529;
+    margin-top: 20px;
 }
 .table thead{
     background-color: #212429 !important;    
@@ -827,7 +833,7 @@ label {
     position: relative !important;
 }
 .hr-tab li:last-child a{
-    padding: 0.5rem 1.25rem;
+    padding: 0.75rem 1.25rem;
 }
 .search-style{
     background: transparent;
@@ -864,4 +870,7 @@ td button:hover i {
 }
 .form-control {
     color: rgba(0, 0, 0, 0.5);
+}
+a:hover {
+    cursor: pointer;
 }
