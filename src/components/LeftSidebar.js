@@ -14,59 +14,10 @@ import profilePic from '../assets/images/users/avatar-7.jpg';
 
 import logo from '../assets/images/logo.png';
 //import logo2 from '../assets/images/logo2.png';
-
+import { loginUser } from '../redux/auth/actions';
 /**
  * User Widget
  */
-const UserProfile = () => {
-    return <React.Fragment>
-        <div style={{background:'#e5e5e5', padding:'8px 0px'}}>
-        <Link to="/" className="">
-              <span className="logo-lg ml-2">
-                <img src={logo} alt="" height="47" />
-              </span>
-              {/* <span className="logo-sm mr-2 float-right">
-                <img src={logo2} alt="" height="40" />
-              </span> */}
-            </Link>
-            </div>
-        <div className="media user-profile mt-2 mb-2">
-            <div>
-            <img src={profilePic} className="avatar-sm rounded-circle mr-2" alt="" />
-            </div>
-            <div className="media-body">
-                <h6 className="pro-user-name mt-0 mb-0">Arche Softronix</h6>
-                <a className="text-dark" href="/account/logout">Sign Out</a>
-            </div>
-
-            {/* <UncontrolledDropdown className="align-self-center profile-dropdown-menu">
-                <DropdownToggle
-                    data-toggle="dropdown"
-                    tag="button"
-                    className="btn btn-link p-0 dropdown-toggle mr-0">
-                    <FeatherIcon.ChevronDown />
-                </DropdownToggle>
-                <DropdownMenu right className="topbar-dropdown-menu profile-dropdown-items">
-                    <Link to="/" className="dropdown-item notify-item">
-                        <FeatherIcon.User className="icon-dual icon-xs mr-2" />
-                        <span>My Account</span>
-                    </Link>
-                    <DropdownItem divider />
-                    <Link to="/account/logout" className="dropdown-item notify-item">
-                        <FeatherIcon.LogOut className="icon-dual icon-xs mr-2" />
-                        <span>Logout</span>
-                    </Link>
-                    <DropdownItem divider />
-                    <Link to="/account/changepassword" className="dropdown-item notify-item">
-                        <FeatherIcon.LogOut className="icon-dual icon-xs mr-2" />
-                        <span>Change Password</span>
-                    </Link>
-                </DropdownMenu>
-            </UncontrolledDropdown> */}
-        </div>
-    </React.Fragment>
-}
-
 
 /**
  * Sidenav
@@ -125,11 +76,31 @@ class LeftSidebar extends Component {
 
     render() {
         const isCondensed = this.props.isCondensed || false;
-
+        console.log("left side bar", this.props.user.Username);
+        let username=this.props.user.Username;
         return (
             <React.Fragment>
                 <div className='left-side-menu' ref={node => this.menuNodeRef = node}>
-                    <UserProfile />
+                <React.Fragment>
+        <div style={{background:'#e5e5e5', padding:'8px 0px'}}>
+        <Link to="/" className="">
+              <span className="logo-lg ml-2">
+                <img src={logo} alt="" height="47" />
+              </span>
+            </Link>
+            </div>
+        <div className="media user-profile mt-2 mb-2">
+            <div>
+            <img src={profilePic} className="avatar-sm rounded-circle mr-2" alt="" />
+            </div>
+            <div className="media-body">
+                <h6 className="pro-user-name mt-0 mb-0">{username}</h6>
+                <a className="text-dark" href="/account/logout">Sign Out</a>
+            </div>
+
+            
+        </div>
+    </React.Fragment>
                     {!isCondensed && <PerfectScrollbar><SideNav /></PerfectScrollbar>}
                     {isCondensed && <SideNav />}
                 </div>
@@ -138,4 +109,11 @@ class LeftSidebar extends Component {
     }
 }
 
-export default connect()(LeftSidebar);
+//export default connect()(LeftSidebar);
+const mapStateToProps = (state) => {
+    const { user, loading, error } = state.Auth;
+    return { user, loading, error };
+    
+};
+
+export default connect(mapStateToProps, { loginUser })(LeftSidebar);
