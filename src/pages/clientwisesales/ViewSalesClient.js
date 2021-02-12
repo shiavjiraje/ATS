@@ -5,9 +5,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import { getLeaveList } from '../../redux/leave/actions';
+import { getCwsList } from '../../redux/clientwisesales/actions';
 //import PageTitle from '../../components/PageTitle';
-
+import * as FeatherIcon from 'react-feather';
 const defaultSorted = [
     {
         dataField: 'id',
@@ -97,9 +97,9 @@ const TableWithSearch = (props) => {
 const ViewSalesClient = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Leave.leave);
+   let records = useSelector((state) => state.CWS.cws);
     useEffect(() => {
-        dispatch(getLeaveList());
+        dispatch(getCwsList());
 
         // eslint-disable-next-line 
     }, []);
@@ -107,19 +107,38 @@ const ViewSalesClient = () => {
     const columns = [
         
         {
-            dataField:'type',
+            dataField:'name',
             text:"Sales Name"
         },
         {
-            dataField: 'noofdays',
+            dataField: 'clientname',
             text: 'Client Name',
         },
         {
-            dataField: 'reason',
-            text: 'Reason',
+            dataField: 'Delete',
+            text: 'Delete',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary"
+                    onClick={() => _validateFunction(row)}
+                    title="Delete"
+                  >
+                   <FeatherIcon.Trash2 />
+                  </button>
+                );
+              },
         }
     ];
+    function _validateFunction(row , id) {    
+        // console.log("activity id :",(id));
+         // dispatch(getRequirementModal((row)));
  
+         //dispatch( setSaveRequirement( row) );
+ 
+          //   dispatch( getRequirementModal() );
+     }
     return (
         <React.Fragment>
             <Row>

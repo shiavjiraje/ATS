@@ -6,10 +6,12 @@ import { Cookies } from 'react-cookie';
  * Checks if user is authenticated
  */
 const isUserAuthenticated = () => {
+   
     const user = getLoggedInUser();
     if (!user) {
         return false;
     }
+    //console.log("isUserAuthenticated",user);
     const decoded = jwtDecode(user.token);
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {

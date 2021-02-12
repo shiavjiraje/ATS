@@ -745,7 +745,7 @@ body {
 .requirement-tab .nav-link.active, .requirement-tab .nav-item.show .nav-link {
     color: #fff;
     background-color: #f14e01;
-    border: none !important;
+    border: 1px solid #f14e01 !important;
 }
 .requirement-tab .nav-link:hover{
 background-color: #f14e01;
@@ -873,4 +873,7 @@ td button:hover i {
 }
 a:hover {
     cursor: pointer;
+}
+.btn-link{
+    padding: 0px 10px;
 }

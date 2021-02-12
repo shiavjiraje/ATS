@@ -13,35 +13,34 @@ import logo from '../../assets/images/logo.png';
 //import logo2 from '../../assets/images/logo2.png';
 
 class Login extends Component {
-    _isMounted = false;
+    //_isMounted = false;
 
     constructor(props) {
         super(props);
 
         this.handleValidSubmit = this.handleValidSubmit.bind(this);
         this.state = {
-            username: 'test',
-            password: 'test',
-            rememberme:false
+            username: '',
+            password: '',
+            rememberme:true
         }
     }
 
     componentDidMount() {
-        this._isMounted = true;
-
+       // this._isMounted = true;
         document.body.classList.add('authentication-bg');
     }
 
     componentWillUnmount() {
-        this._isMounted = false;
+        //this._isMounted = false;
         document.body.classList.remove('authentication-bg');
     }
 
     /**
      * Handles the submit
      */
-    handleValidSubmit = (event, values) => {
-        this.props.loginUser(values.username, values.password, values.rememberme, this.props.history);
+    handleValidSubmit (event, values) {
+        this.props.loginUser(values.username, values.password, values.rememberme=true, this.props.history.push);
     }
 
 
@@ -50,14 +49,12 @@ class Login extends Component {
      */
     renderRedirectToRoot = () => {
         const isAuthTokenValid = isUserAuthenticated();
+        console.log("login isAuthTokenValid", isAuthTokenValid)
         if (isAuthTokenValid) {
             return <Redirect to='/' />
         }
     }
-    handleCheckboxChange = event =>{
-    alert('');
-    this.setState({ checked: event.target.checked });
-    }
+
     render() {
         const isAuthTokenValid = isUserAuthenticated();
         return (
@@ -128,7 +125,7 @@ class Login extends Component {
                                                         <AvFeedback>This field is invalid</AvFeedback>
                                                     </AvGroup>
                                                     <div className="form-check mt-2">
-                                                        <input type="checkbox" className="form-check-input" id="rememberme" name="rememberme" onChange={this.handleCheckboxChange} defaultChecked={this.state.rememberme} value={this.state.rememberme}/>
+                                                        <input type="checkbox" className="form-check-input" id="rememberme" name="rememberme" value={this.state.rememberme}/>
                                                         <label className="form-check-label" htmlFor="rememberme">Remember Me</label>
                                                         <Link to="/account/forget-password" className="float-right text-muted text-unline-dashed ml-1">Forgot your password?</Link>
                                                     </div>

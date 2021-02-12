@@ -15,6 +15,9 @@ import Teams from './teammaster/reducers';
 import Role from './role/reducers';
 import Leave from './leave/reducers';
 import Holiday from './holiday/reducers';
+import CWS from './clientwisesales/reducers';
+import SalesUser from './salesuser/reducers';
+import Report from'./allreport/reducers';
 export default combineReducers({
     Auth,
     AppMenu,
@@ -29,5 +32,8 @@ export default combineReducers({
     Teams,
     Role,
     Leave,
-    Holiday
+    Holiday,
+    CWS,
+    SalesUser,
+    Report
 });

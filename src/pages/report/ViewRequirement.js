@@ -7,9 +7,10 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
-import { getRequirementList, getRequirementModal, setSaveRequirement } from '../../redux/requirement/actions';
-import EditRequirementmodal from './EditRequirementmodal';
+import { getReqReportList } from '../../redux/allreport/actions';
+//import EditRequirementmodal from './EditRequirementmodal';
 import axios from 'axios';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import PageTitle from '../../components/PageTitle';
 //import AddUserModal from '../user/AddUserModal';
@@ -59,7 +60,40 @@ const TableWithSearch = (props) => {
           <div className="rect5" />
         </div>
       );
+      const {
+        //buttonLabel,
+        className
+      } = props;
     
+      const [modal, setModal] = useState(false);
+      const [file, setFile] = useState(null);
+      const toggle = () => setModal(!modal);
+      const UPLOAD_ENDPOINT =
+      "http://144.48.250.235:98/api/UploadFile";
+  
+    const handleSubmit = async e => {
+      e.preventDefault();
+      //if await is removed, console log will be called before the uploadFile() is executed completely.
+      //since the await is added, this will pause here then console log will be called
+      let res = await uploadFile(file);
+      console.log(res.data);
+    };
+  
+    const uploadFile = async file => {
+      const formData = new FormData();
+      formData.append("avatar", file);
+  
+      return await axios.post(UPLOAD_ENDPOINT, formData, {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      });
+    };
+  
+    const handleOnChange = e => {
+      console.log(e.target.files[0]);
+      setFile(e.target.files[0]);
+    };
     return (
             
                 <ToolkitProvider bootstrap4 keyField="ROW_NUMBER" data={props.records} columns={props.columns} search>
@@ -72,6 +106,7 @@ const TableWithSearch = (props) => {
                                 </Col>    
                                 <Col md={6} className="text-right">
                                 <UncontrolledDropdown className=" profile-dropdown-menu">
+                                <button className="btn btn-secondary bg-secondary upbtn  mr-0" onClick={toggle}>Upload New</button>
                 <DropdownToggle
                     data-toggle="dropdown"
                     tag="button"
@@ -90,10 +125,25 @@ const TableWithSearch = (props) => {
                     </div>
                 </DropdownMenu>
             </UncontrolledDropdown>
+            <Modal isOpen={modal} toggle={toggle} className={className}>
+            <form onSubmit={handleSubmit}>
+                        <ModalHeader toggle={toggle}>Upload </ModalHeader>
+                        <ModalBody>
+                          <Row>
+                            <input type="file" className="form-control" onChange={handleOnChange} />
+                         </Row>
+                        </ModalBody>
+                        <ModalFooter>
+                        <Button color="primary" type="submit">Upload File</Button>{' '}
+                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                        </ModalFooter>
+                        </form>
+                    </Modal>
                                 {/* <ExportCSVButton className="btn-primary" { ...props.csvProps }>Export CSV!!</ExportCSVButton> */}
                                 </Col>                            
                             </Row>
                             {/* <EditRequirementmodal modalToggle={toggle}/> */}
+                            <div class="table-responsive">
                             <BootstrapTable
                                 {...props.baseProps}
                                 bordered={false}
@@ -115,142 +165,85 @@ const TableWithSearch = (props) => {
                                     )
                                 }
                                 
-                            />
+                            /></div>
                         </React.Fragment>
                     )}
+                  
                 </ToolkitProvider>
     );
 };
 
 const ViewRequirement = (props) => {
-    const [file, setFile] = useState(null);
+    
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Requirements.requirements);
-   //console.log(records, 'requirement')
+   let records = useSelector((state) => state.Report.reqreport);
+   console.log(records, 'requirement')
     useEffect(() => {
-        dispatch(getRequirementList());
+        dispatch(getReqReportList());
 
         // eslint-disable-next-line 
     }, []);
-    const UPLOAD_ENDPOINT =
-    "http://144.48.250.235:98/api/UploadFile";
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    //if await is removed, console log will be called before the uploadFile() is executed completely.
-    //since the await is added, this will pause here then console log will be called
-    let res = await uploadFile(file);
-    console.log(res.data);
-  };
-
-  const uploadFile = async file => {
-    const formData = new FormData();
-    formData.append("avatar", file);
-
-    return await axios.post(UPLOAD_ENDPOINT, formData, {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
-    });
-  };
-
-  const handleOnChange = e => {
-    console.log(e.target.files[0]);
-    setFile(e.target.files[0]);
-  };
+   
     const columns = [
         {
             dataField: 'jobcode',
             text: 'Job Code.',
         },
         {
-            dataField:'jclientname',
+            dataField:'client',
             text:"Client Name"
         },
         {
-            dataField: 'jskill',
+            dataField: 'skill',
             text: 'Skill',
         },
         {
-            dataField: 'jposition',
+            dataField: 'position',
             text: 'Position',
         },
         {
-            dataField: 'jlocation',
+            dataField: 'location',
             text: 'Location',
         },
         {
-            dataField: 'jendclient',
-            text: 'End Client',
+            dataField: 'type',
+            text: 'Type',
         },
         {
-            dataField: 'jstatus',
+            dataField: 'status',
             text: 'Status',
         },
         {
-            dataField: 'jcreatedon',
+            dataField: 'createdon',
             text: 'Created On',
         },
         {
-            dataField: 'jassignuser',
-            text: 'Assign To',
-            headerStyle: (colum, colIndex) => {
-                return { width: '200px'};
-              }
+            dataField: 'submission',
+            text: 'Submission',
         },  
         {
-            dataField: 'actions',
-            text: 'Action',
-            formatter:actionRequirement
+            dataField: 'interview',
+            text: 'Interview',
         },
         {
-            dataField: 'edit',
-            text: 'Edit',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
-                    title="Edit"
-                  >
-                   <FeatherIcon.Edit />
-                  </button>
-                );
-              },
-            //formatter:editRequirement
-        }
-    ];
-    function _validateFunction(row , id) {    
-       // console.log("activity id :",(id));
-        // dispatch(getRequirementModal((row)));
-
-        dispatch( setSaveRequirement( row) );
-
-            dispatch( getRequirementModal() );
-    }
-    
-    function actionRequirement(cell, row) {     
-        return <label>
-               <button type="button" 
-                               id="actionButton" title="Action"
-                       onClick={() => {_validateFunction(row=[])}} 
-                       className="btn btn-link text-secondary">
-                            <FeatherIcon.Target />
-               </button>
-               
-               </label> 
-                      
-   }   return (
+            dataField: 'offer',
+            text: 'Offer',
+        },
+        {
+            dataField: 'hire',
+            text: 'Hire',
+        },
+        {
+            dataField: 'bd',
+            text: 'BD',
+        },
+    ]
+        return (
         <React.Fragment>
             <Row>
                 <Col>
-                <EditRequirementmodal/>
-                <form onSubmit={handleSubmit}>
-      <h1>React File Upload</h1>
-      <input type="file" onChange={handleOnChange} />
-      <button type="submit">Upload File</button>
-    </form>
+                {/* <EditRequirementmodal/> */}
+               
                     <TableWithSearch records={records} columns={columns} />
                 </Col>
             </Row>

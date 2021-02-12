@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     Label,
     FormGroup,
@@ -9,21 +9,34 @@ import {
 } from 'reactstrap';
 import { AvForm, AvGroup, AvFeedback } from 'availity-reactstrap-validation';
 import { User } from 'react-feather';
-
-class AssignClient extends Component {
-    // _isMounted = false;
-
-    // constructor(props) {
-    //     super(props);
-    // }
-
-    render() {
+import { getClientList } from '../../redux/client/actions';
+import { getSalesUserList } from '../../redux/salesuser/actions';
+const AssignClient =(props)=>{
+    const [cid, setCid] = useState([]);
+    const [uid, setUid]= useState([]);
+    let clientList = useSelector((state) => state.Client.clients || []);
+    let salesUserList = useSelector((state) => state.SalesUser.salesuser || []);
+   // console.log("cws", clientList)
+    const dispatch = useDispatch();
+     useEffect(() => {
+        dispatch(getClientList());
+        dispatch(getSalesUserList());
+         // eslint-disable-next-line 
+     }, []);
+     const handleSubmit = e => {
+        e.preventDefault();
+        const reqBody ={
+            cid:cid ,
+            uid:uid,
+        };
+        //dispatch(setUser(reqBody));
+    }
         return (
             <React.Fragment>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 offset-md-3">
-                            <AvForm onValidSubmit={this.handleValidSubmit} className="authentication-form card p-5">
+                            <AvForm  className="authentication-form card p-5">
                                 
                             <h5 className="text-uppercase  text-center">Apply Your Leave</h5>
                                 <AvGroup className="">
@@ -35,12 +48,18 @@ class AssignClient extends Component {
                                             </span>
                                         </InputGroupAddon>
                                         <select
-                                            type="text"
-                                            className="form-control"
-                                            name="fullname"
-                                            id="fullname"
-                                            required
-                                        ></select>
+                                className="form-control"
+                                name="uid"
+                                required onChange={(e,i) => {
+                                    setUid(e.target.value);
+                                }}>
+                                    <option disabled selected>Select</option>
+                                {salesUserList.map((salesusers) => (
+                                    <option key={salesusers.EId} value={salesusers.EId}>
+                                        {salesusers.EFullname}
+                                    </option>
+                                ))}
+                            </select>
                                     </InputGroup>
 
                                     <AvFeedback>This field is invalid</AvFeedback>
@@ -54,12 +73,18 @@ class AssignClient extends Component {
                                             </span>
                                         </InputGroupAddon>
                                         <select
-                                            type="text"
-                                            name="clentname"
-                                            id="clentname"
-                                            className="form-control"
-                                            required
-                                        ></select>
+                                className="form-control"
+                                name="cid"
+                                required onChange={(e,i) => {
+                                    setCid(e.target.value);
+                                }}>
+                                    <option disabled selected>Select</option>
+                                {clientList.map((client) => (
+                                    <option key={client.cid} value={client.cid}>
+                                        {client.cname}
+                                    </option>
+                                ))}
+                            </select>
                                     </InputGroup>
 
                                     <AvFeedback>This field is invalid</AvFeedback>
@@ -76,6 +101,5 @@ class AssignClient extends Component {
             </React.Fragment>
         );
     }
-}
 
 export default AssignClient;

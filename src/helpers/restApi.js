@@ -11,7 +11,7 @@ import api from './axios';
  export const editRequirement = () => {
     return api.get( `/Requirement_Master` );
  };
-
+//Client
  export const getClientList = () => {
    return api.get( '/client_master' );
 };
@@ -19,6 +19,7 @@ import api from './axios';
 export const setClient = ( createclients ) => {
    return api.post( '/client_master', createclients );
 };
+// recruter master
 export const getRecruiterList = () => {
    return api.get( '/Recruiter_Mst' );
 };
@@ -110,12 +111,36 @@ export const createRole = (createrole) => {
 };
 //leave
 export const getLeave = () => {
-   return api.get( 'LeaveMaster?username=ajay.zala@archesoftronix.com', );
+   return api.get( '/LeaveMaster?username=ajay.zala@archesoftronix.com', );
 };
 //holiday
 export const getHoliday = () => {
    return api.get( '/HolidayMaster', );
 };
+//client wise sales
+export const getCwsList = () => {
+   return api.get( '/SalesClientMaster' );
+};
+export const setCws = ( createcws ) => {
+   return api.post( '/SalesClientMaster', createcws );
+};
+//sales user list
+export const getSalesUserList=()=>{
+   return api.get('/SalesUser');
+}
+//requirement progress report 
+export const getReqReport=()=>{
+   return api.get('/RequirementProgressReport');
+}
+//datewsie report 
+export const getDatewiseReport=()=>{
+   return api.get('/DateWiseCountReportMaster?username=ajay.zala@archesoftronix.com&ssd=2021-01-12&eed=2021-02-12');
+}
+// month count report 
+//datewsie report 
+export const getMonthCountReport=()=>{
+   return api.get('/MonthReport?username=ajay.zala@archesoftronix.com');
+}
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
     return api.get( '/Requirement_Master' );
@@ -126,8 +151,8 @@ export const getDepartamentosList = () =>{
  };
  
 /** Auth */
-export const loginUser = ( token ) => {
-   return api.post( '/login', {'GUID': token} );
+export const loginUser = ( username,password) => {
+   return api.post( '/login',{username,password});
 }; 
 
 export const getUserImage = ( userId ) => {

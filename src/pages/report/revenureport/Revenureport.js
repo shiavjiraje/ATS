@@ -5,7 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import * as FeatherIcon from 'react-feather';
+//import * as FeatherIcon from 'react-feather';
 import { getUserList } from '../../../redux/user/actions';
 //import PageTitle from '../../components/PageTitle';
 
@@ -69,6 +69,17 @@ const TableWithSearch = (props) => {
                                     <SearchBar {...props.searchProps} />
                                 </Col>                    
                             </Row>
+                            <Row className="mt-3">
+                            <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <button className="btn btn-primary">Search</button>
+                                </Col>                     
+                            </Row>
 
                             <BootstrapTable
                                 {...props.baseProps}
@@ -98,7 +109,7 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewUser = () => {
+const Revenureport = () => {
 
     const dispatch = useDispatch(); 
    let records = useSelector((state) => state.Users.users);
@@ -117,75 +128,51 @@ const ViewUser = () => {
         },
         {
             dataField: 'ECode',
-            text: 'Employee Code.',
+            text: 'Name.',
             //sort: true,
         },
         {
             dataField: 'EFullname',
-            text: 'Name',
+            text: 'Client',
             sort: true,
         },
         {
             dataField: 'ECompany_Name',
-            text: 'Company',
-        },
-        {
-            dataField: 'EDesignation',
-            text: 'Designation',
-        },
-        {
-            dataField: 'ELocation',
             text: 'Location',
         },
         {
-            dataField: 'ERole',
-            text: 'Role',
+            dataField: 'EDesignation',
+            text: 'Skill',
         },
         {
-            dataField: 'EEmail',
-            text: 'Email',
+            dataField: 'ELocation',
+            text: 'Type',
         },
         {
-            dataField: 'email',
-            text: 'Edit',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
-                    title="Edit"
-                  >
-                   <FeatherIcon.Edit />
-                  </button>
-                );
-              },
+            dataField: 'ELocation',
+            text: 'CTC',
         },
         {
-            dataField: 'Delete',
-            text: 'Delete',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
-                    title="Delete"
-                  >
-                   <FeatherIcon.Trash2 />
-                  </button>
-                );
-              },
-        } 
-    ];
-    function _validateFunction(row , id) {    
-        // console.log("activity id :",(id));
-         // dispatch(getRequirementModal((row)));
- 
-         //dispatch( setSaveRequirement( row) );
- 
-          //   dispatch( getRequirementModal() );
-     }
+            dataField: 'ELocation',
+            text: 'DR',
+        },
+        {
+            dataField: 'ELocation',
+            text: 'PR',
+        },
+        {
+            dataField: 'ELocation',
+            text: 'GP',
+        },
+        {
+            dataField: 'ELocation',
+            text: 'GPM',
+        },
+        {
+            dataField: 'ELocation',
+            text: 'Recruiter',
+        }
+    ]
     return (
         <React.Fragment>
             <Row>
@@ -197,6 +184,6 @@ const ViewUser = () => {
     );
 };
 
-export default ViewUser;
+export default Revenureport;
 
 

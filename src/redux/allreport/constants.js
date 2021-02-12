@@ -1,0 +1,12 @@
+
+/** List of Requirement Progress Report */
+export const GET_RPR_LIST_REQUEST = 'GET_RPR_LIST_REQUEST';
+export const SET_RPR_LIST_REQUEST = 'SET_RPR_LIST_REQUEST';
+
+/** List of datewise Report */
+export const GET_DATEWISE_LIST_REQUEST = 'GET_DATEWISE_LIST_REQUEST';
+export const SET_DATEWISE_LIST_REQUEST = 'SET_DATEWISE_LIST_REQUEST';
+
+/** List of MonthCount Report */
+export const GET_MONTHCOUNT_LIST_REQUEST = 'GET_MONTHCOUNT_LIST_REQUEST';
+export const SET_MONTHCOUNT_LIST_REQUEST = 'SET_MONTHCOUNT_LIST_REQUEST';

@@ -30,7 +30,8 @@ const Requirement =React.lazy(()=>import('../pages/requirement/Requirement'));
 const List =React.lazy(()=>import('../pages/list/List'));
 //User
 const Masters = React.lazy(()=> import('../pages/master/Masters'));
-
+//Report
+const Report = React.lazy(()=> import('../pages/report/Report'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -42,8 +43,12 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => (
             }
 
             const loggedInUser = getLoggedInUser();
+           // console.log('loggedInUser=',loggedInUser);
+            //console.log('roles',roles);
+            //console.log(' roles.indexOf(loggedInUser.role) ', roles.indexOf(loggedInUser.Role) )
             // check if route is restricted by role
-            if (roles && roles.indexOf(loggedInUser.role) === -1) {
+            if (roles && roles.indexOf(loggedInUser.Role) === -1) {
+               //  console.log('user role check', roles);
                 // role not authorised so redirect to home page
                 return <Redirect to={{ pathname: '/' }} />;
             }
@@ -58,6 +63,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => (
 const rootRoute = {
     path: '/',
     exact: true,
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     component: () => <Redirect to="/dashboard" />,
     route: PrivateRoute,
 };
@@ -67,13 +73,14 @@ const dashboardRoutes = {
     name: 'Dashboard',
     icon: FeatherIcon.Home,
     component: Dashboard,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     route: PrivateRoute
 };
 //Requirement
 const requirementRoutes= {
     path: '/reqirement',
     name: 'Requirement',
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     component: Requirement,
     route: PrivateRoute,
 };
@@ -82,12 +89,14 @@ const listRoutes= {
     path: '/list',
     name: 'List',
     component: List,
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     route: PrivateRoute,
 };
 //Attendance
 const attendanceRoutes= {
     path: '/attendance',
     name: 'Attendance',
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     component: Attendance,
     route: PrivateRoute,
 };
@@ -97,7 +106,7 @@ const activityRoutes = {
     name: 'Activity',
     icon: FeatherIcon.Activity,
     component: Activity,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     route: PrivateRoute
 };
 //Hr
@@ -106,7 +115,7 @@ const hrRoutes = {
     name: 'HR',
     icon: FeatherIcon.Aperture,
     component: Hr,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     route: PrivateRoute
 };
 // Master
@@ -117,12 +126,13 @@ const masterRoutes = {
     icon: FeatherIcon.FileText,
     component: Masters,
     route: PrivateRoute,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
 //View user
 const viewUserRoutes= {
     path: '/viewuser',
     name: 'View User',
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     component: ViewUser,
     route: PrivateRoute,
 };
@@ -133,16 +143,16 @@ const clientWiseSalesRoutes = {
     icon: FeatherIcon.User,
     component: clientwisesales,
     route: PrivateRoute,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
 //Report
 const reportRoutes = {
     path: '/report',
     name: 'Report',
     icon: FeatherIcon.FileText,
-    component: dashboardOld,
+    component: Report,
     route: PrivateRoute,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
 //Revenue
 const revenueRoutes = {
@@ -151,26 +161,26 @@ const revenueRoutes = {
     icon: FeatherIcon.Shield,
     component: dashboardOld,
     route: PrivateRoute,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
 //Aspl
 const asplRoutes = {
-    path: '/aspl',
-    name: 'ASPL',
+    path: '/salaryslip',
+    name: 'Salary Slip',
     icon: FeatherIcon.Download,
     component: dashboardOld,
     route: PrivateRoute,
-    roles: ['Admin'],
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
 //Rt
-const rtRoutes = {
-    path: '/rt',
-    name: 'RT',
-    icon: FeatherIcon.Download,
-    component: dashboardOld,
-    route: PrivateRoute,
-    roles: ['Admin'],
-};
+// const rtRoutes = {
+//     path: '/rt',
+//     name: 'RT',
+//     icon: FeatherIcon.Download,
+//     component: dashboardOld,
+//     route: PrivateRoute,
+//     roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
+// };
 
 // auth
 const authRoutes = {
@@ -237,13 +247,13 @@ const allRoutes = [
     reportRoutes,
     revenueRoutes,
     asplRoutes,
-    rtRoutes,
+    //rtRoutes,
     requirementRoutes,
     attendanceRoutes,
     listRoutes,
     viewUserRoutes
 ];
 
-const authProtectedRoutes = [dashboardRoutes, activityRoutes, hrRoutes, masterRoutes, clientWiseSalesRoutes,reportRoutes,revenueRoutes,asplRoutes,rtRoutes];
+const authProtectedRoutes = [dashboardRoutes, activityRoutes, hrRoutes, masterRoutes, clientWiseSalesRoutes,reportRoutes,revenueRoutes,asplRoutes];
 const allFlattenRoutes = flattenRoutes(allRoutes);
 export { allRoutes, authProtectedRoutes, allFlattenRoutes };

@@ -13,15 +13,19 @@ import {
 } from './constants';
 
 
-export const loginUser = (username, password) => ({
+export const loginUser = (username, password, rememberme) => ({
     type: LOGIN_USER,
-    payload: { username, password },
+    payload: { username, password, rememberme },
 });
 
-export const loginUserSuccess = (user) => ({
-    type: LOGIN_USER_SUCCESS,
-    payload: user,
-});
+export const loginUserSuccess = (user) => {
+    console.log('loginUserSuccess user==',user)
+     return {
+        type: LOGIN_USER_SUCCESS,
+        payload: user,
+    }
+
+}
 
 export const loginUserFailed = (error) => ({
     type: LOGIN_USER_FAILED,

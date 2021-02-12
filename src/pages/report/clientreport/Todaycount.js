@@ -5,7 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import * as FeatherIcon from 'react-feather';
+//import * as FeatherIcon from 'react-feather';
 import { getUserList } from '../../../redux/user/actions';
 //import PageTitle from '../../components/PageTitle';
 
@@ -69,7 +69,7 @@ const TableWithSearch = (props) => {
                                     <SearchBar {...props.searchProps} />
                                 </Col>                    
                             </Row>
-
+                           
                             <BootstrapTable
                                 {...props.baseProps}
                                 bordered={false}
@@ -98,7 +98,7 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewUser = () => {
+const Todaycount = () => {
 
     const dispatch = useDispatch(); 
    let records = useSelector((state) => state.Users.users);
@@ -117,75 +117,27 @@ const ViewUser = () => {
         },
         {
             dataField: 'ECode',
-            text: 'Employee Code.',
+            text: 'Name.',
             //sort: true,
         },
         {
             dataField: 'EFullname',
-            text: 'Name',
+            text: 'Submission',
             sort: true,
         },
         {
             dataField: 'ECompany_Name',
-            text: 'Company',
+            text: 'Interview',
         },
         {
             dataField: 'EDesignation',
-            text: 'Designation',
+            text: 'Offer',
         },
         {
             dataField: 'ELocation',
-            text: 'Location',
-        },
-        {
-            dataField: 'ERole',
-            text: 'Role',
-        },
-        {
-            dataField: 'EEmail',
-            text: 'Email',
-        },
-        {
-            dataField: 'email',
-            text: 'Edit',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
-                    title="Edit"
-                  >
-                   <FeatherIcon.Edit />
-                  </button>
-                );
-              },
-        },
-        {
-            dataField: 'Delete',
-            text: 'Delete',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
-                    title="Delete"
-                  >
-                   <FeatherIcon.Trash2 />
-                  </button>
-                );
-              },
-        } 
-    ];
-    function _validateFunction(row , id) {    
-        // console.log("activity id :",(id));
-         // dispatch(getRequirementModal((row)));
- 
-         //dispatch( setSaveRequirement( row) );
- 
-          //   dispatch( getRequirementModal() );
-     }
+            text: 'Start',
+        }
+    ]
     return (
         <React.Fragment>
             <Row>
@@ -197,6 +149,6 @@ const ViewUser = () => {
     );
 };
 
-export default ViewUser;
+export default Todaycount;
 
 
