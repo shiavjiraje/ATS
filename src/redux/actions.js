@@ -15,3 +15,4 @@ export * from './holiday/actions';
 export * from './clientwisesales/actions';
 export * from './salesuser/actions';
 export * from './allreport/actions';
+export * from './teamLead/actions';

@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, FormGroup, Form, Label} from 'reactstrap';
 import { getRecruiterList } from '../../../redux/recruiter/actions';
+import { getTeamLeadList } from '../../../redux/teamLead/actions';
 import { Multiselect } from "multiselect-react-dropdown";
 import moment from 'moment';
 import { createTeam } from '../../../redux/teammaster/actions';
@@ -10,6 +11,7 @@ const AddTeam = () => {
     //const [selectedValue, setSelectedValue] = useState([]);
     var currentTime = moment().format('DD/MM/YYYY HH:mm'); 
     let recruterList = useSelector((state) => state.Recruiter.recruiters || []);
+    let teamLeadList = useSelector((state) => state.TeamLead.teamlead || []);
     //console.log("recruter", recruterList)
     const [createdby, setCreatedby]=useState(currentTime);
     const [teamlead, setTeamlead]=useState('');
@@ -24,6 +26,7 @@ const AddTeam = () => {
     const dispatch = useDispatch();
      useEffect(() => {
         dispatch(getRecruiterList());
+        dispatch(getTeamLeadList());
          // eslint-disable-next-line 
      }, []);
      const handleSubmit=(e)=>{
@@ -58,9 +61,9 @@ const AddTeam = () => {
                                         setTeamlead (e.target.value);
                                     }}>
                                          <option selected desabled>Select</option>
-                                    {recruterList.map((recruter,i) => (
-                                    <option key={i++} value={recruter.EId}>
-                                        {recruter.EFullname}
+                                    {teamLeadList.map((teamLead,i) => (
+                                    <option key={i++} value={teamLead.EId}>
+                                        {teamLead.EFullname}
                                     </option>
                                 ))}
                                     </select>

@@ -18,6 +18,7 @@ import Holiday from './holiday/reducers';
 import CWS from './clientwisesales/reducers';
 import SalesUser from './salesuser/reducers';
 import Report from'./allreport/reducers';
+import TeamLead from'./teamLead/reducers';
 export default combineReducers({
     Auth,
     AppMenu,
@@ -35,5 +36,6 @@ export default combineReducers({
     Holiday,
     CWS,
     SalesUser,
-    Report
+    Report,
+    TeamLead
 });

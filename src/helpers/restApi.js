@@ -101,6 +101,10 @@ export const getUserList = () => {
 export const setUser = (user) => {
    return api.post( '/User_Master',user);
 };
+// Team Lead Master 
+export const getTeamLead = () => {
+   return api.get( '/TeamLead_Master' );
+};
 //Role master 
 export const getRoleList = () => {
    return api.get( '/UserRole_Master' );
