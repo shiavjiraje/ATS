@@ -145,6 +145,15 @@ export const getDatewiseReport=()=>{
 export const getMonthCountReport=()=>{
    return api.get('/MonthReport?username=ajay.zala@archesoftronix.com');
 }
+//today report 
+export const getTodayReport=()=>{
+   return api.get('/TodayReport?username=ajay.zala@archesoftronix.com');
+}
+//today report 
+export const getRevenuReport=()=>{
+   return api.get('/RevenueReportDateWise?username=ajay.zala@archesoftronix.com&ssd=2020-01-12&eed=2021-02-12');
+}
+
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
     return api.get( '/Requirement_Master' );

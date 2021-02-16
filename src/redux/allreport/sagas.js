@@ -4,7 +4,9 @@ import * as actions from './actions';
 import {
     GET_RPR_LIST_REQUEST,
     GET_DATEWISE_LIST_REQUEST,
-    GET_MONTHCOUNT_LIST_REQUEST
+    GET_MONTHCOUNT_LIST_REQUEST,
+    GET_TODAY_LIST_REQUEST,
+    GET_REVENU_LIST_REQUEST
     //SET_CLIENT_LIST_REQUEST
 } from './constants'
 
@@ -62,11 +64,49 @@ function* getMonthCountReportList () {
 function* watchGetMonthCountReportRequest(){
     yield takeEvery( GET_MONTHCOUNT_LIST_REQUEST, getMonthCountReportList );
 }
+// Today report
+function* getTodayReportList () {
+    try {
+        const response = yield  call( api.getTodayReport );
+       if (response.data && response.data.Data) {
+        yield put( actions.setTodayReport( response.data.Data ) );
+        //console.log(response.data, "Todayuire saga working")
+       }
+       else{
+        yield put( actions.setTodayReport( [] ) );
+       }
+    } catch (error) {
+        console.log(error);
+    }
+}
+function* watchGetTodayReportRequest(){
+    yield takeEvery( GET_TODAY_LIST_REQUEST, getTodayReportList );
+}
+// Revenu report
+function* getRevenuReportList () {
+    try {
+        const response = yield  call( api.getRevenuReport );
+       if (response.data && response.data.Data) {
+        yield put( actions.setRevenuReport( response.data.Data ) );
+        //console.log(response.data, "Revenuuire saga working")
+       }
+       else{
+        yield put( actions.setRevenuReport( [] ) );
+       }
+    } catch (error) {
+        console.log(error);
+    }
+}
+function* watchGetRevenuReportRequest(){
+    yield takeEvery( GET_REVENU_LIST_REQUEST, getRevenuReportList );
+}
 function* reqReportSagas() {
     yield all([
         fork( watchGetReqReportRequest ),
         fork( watchGetDatewiseReportRequest ),
         fork(watchGetMonthCountReportRequest),
+        fork(watchGetTodayReportRequest),
+        fork(watchGetRevenuReportRequest),
     ]);
 }
 

@@ -6,7 +6,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import * as FeatherIcon from 'react-feather';
-import { getUserList } from '../../../redux/user/actions';
+import { getRevenuReportList } from '../../../redux/allreport/actions';
 //import PageTitle from '../../components/PageTitle';
 
 
@@ -112,10 +112,10 @@ const TableWithSearch = (props) => {
 const Revenureport = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Users.users);
+   let records = useSelector((state) => state.Report.revenureport);
   // console.log(records, 'join list');
     useEffect(() => {
-        dispatch(getUserList());
+        dispatch(getRevenuReportList());
 
         // eslint-disable-next-line 
     }, []);
@@ -127,49 +127,49 @@ const Revenureport = () => {
             hidden: true
         },
         {
-            dataField: 'ECode',
+            dataField: 'Name',
             text: 'Name.',
             //sort: true,
         },
         {
-            dataField: 'EFullname',
+            dataField: 'Client',
             text: 'Client',
             sort: true,
         },
         {
-            dataField: 'ECompany_Name',
+            dataField: 'Location',
             text: 'Location',
         },
         {
-            dataField: 'EDesignation',
+            dataField: 'Skill',
             text: 'Skill',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'Type',
             text: 'Type',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'CTC',
             text: 'CTC',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'DR',
             text: 'DR',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'PR',
             text: 'PR',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'GP',
             text: 'GP',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'GPM',
             text: 'GPM',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'Recruiter',
             text: 'Recruiter',
         }
     ]

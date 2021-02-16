@@ -6,7 +6,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import * as FeatherIcon from 'react-feather';
-import { getUserList } from '../../../redux/user/actions';
+import { getTodayReportList } from '../../../redux/allreport/actions';
 //import PageTitle from '../../components/PageTitle';
 
 
@@ -101,10 +101,10 @@ const TableWithSearch = (props) => {
 const Todaycount = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Users.users);
+   let records = useSelector((state) => state.Report.todayrepoert);
   // console.log(records, 'join list');
     useEffect(() => {
-        dispatch(getUserList());
+        dispatch(getTodayReportList());
 
         // eslint-disable-next-line 
     }, []);
@@ -116,25 +116,25 @@ const Todaycount = () => {
             hidden: true
         },
         {
-            dataField: 'ECode',
+            dataField: 'name',
             text: 'Name.',
             //sort: true,
         },
         {
-            dataField: 'EFullname',
+            dataField: 'submission',
             text: 'Submission',
             sort: true,
         },
         {
-            dataField: 'ECompany_Name',
+            dataField: 'interview',
             text: 'Interview',
         },
         {
-            dataField: 'EDesignation',
+            dataField: 'offer',
             text: 'Offer',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'start',
             text: 'Start',
         }
     ]
