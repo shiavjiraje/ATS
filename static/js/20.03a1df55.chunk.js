@@ -1,0 +1,2 @@
+(this.webpackJsonpATS=this.webpackJsonpATS||[]).push([[20],{637:function(e,t,n){"use strict";n.r(t);var s=n(0),a=n.n(s),r=n(12);class c extends s.Component{render(){var e=this.props.children||null;return a.a.createElement(s.Suspense,{fallback:a.a.createElement("div",{className:"text-center"})},e)}}t.default=Object(r.b)()(c)}}]);
+//# sourceMappingURL=20.03a1df55.chunk.js.map
