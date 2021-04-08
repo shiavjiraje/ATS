@@ -1,15 +1,14 @@
-import React, { useEffect,useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-//import * as FeatherIcon from 'react-feather';
-import { getDatewiseReportList } from '../../../redux/allreport/actions';
-//import PageTitle from '../../components/PageTitle';
+import config from '../../../helpers/baseurl';
+import axios from 'axios';
 
-
+var urlpattern =config.baseUrl;
 
 const defaultSorted = [
     {
@@ -37,7 +36,7 @@ const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) 
 );
 
 const TableWithSearch = (props) => {
-    const { SearchBar } = Search;
+   // const { SearchBar } = Search;
     //const dispatch = useDispatch();
     const [rowData, setrowData] = useState([]);
     //const [rowSelect, setrowSelect] = useState([]);
@@ -64,22 +63,12 @@ const TableWithSearch = (props) => {
                 <ToolkitProvider bootstrap4 keyField="ROW_NUMBER" data={props.records} columns={props.columns} search>
                     {(props) => (
                         <React.Fragment>
-                            <Row>
+                            {/* <Row>
                                 <Col md={6} className="">
                                     <SearchBar {...props.searchProps} />
                                 </Col>                    
-                            </Row>
-                            <Row className="mt-3">
-                            <Col md={3} className="">
-                                    <input type="date" className="form-control style-input"/>
-                                </Col>   
-                                <Col md={3} className="">
-                                    <input type="date" className="form-control style-input"/>
-                                </Col>   
-                                <Col md={3} className="">
-                                    <button className="btn btn-primary">Search</button>
-                                </Col>                     
-                            </Row>
+                            </Row> */}
+                            
 
                             <BootstrapTable
                                 {...props.baseProps}
@@ -110,15 +99,28 @@ const TableWithSearch = (props) => {
 };
 
 const Datewise = () => {
+ 
+    //const dispatch = useDispatch();
+    const [datewise, setdatewise]=useState([]);
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+    const [startdate, setstartdate]=useState('');
+    const [enddate, setenddate]=useState('');
+    // useEffect(() => {
+    //     //dispatch(getTeamLeadList());
+    //      // eslint-disable-next-line 
+    //  }, []);
+    const handleDatewiseForm = (e) => {
+        var getUsername = loginDetails.Username;
+    e.preventDefault();
+    axios
+        .get(`${urlpattern}DateWiseCountReportMaster?username=${getUsername}&ssd=${startdate}&eed=${enddate}`)
 
-    const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Report.datewsiereport);
-  // console.log(records, 'join list');
-    useEffect(() => {
-        dispatch(getDatewiseReportList());
-
-        // eslint-disable-next-line 
-    }, []);
+        .then((response) => {
+           var setdatelist=response.data.Data;
+           setdatewise(setdatelist);
+        });
+};
+let records = datewise || [];
 
     const columns = [
         {
@@ -151,6 +153,21 @@ const Datewise = () => {
     ]
     return (
         <React.Fragment>
+            <form onSubmit={handleDatewiseForm}>
+            <Row className="mt-3">
+                            <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"
+                                    onChange={(event) => setstartdate(event.target.value)}/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"
+                                    onChange={(event) => setenddate(event.target.value)}/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <button type="submit" className="btn btn-primary">Search</button>
+                                </Col>                     
+                            </Row>
+            </form>
             <Row>
                 <Col>
                     <TableWithSearch records={records} columns={columns} />

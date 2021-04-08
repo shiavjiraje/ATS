@@ -1,15 +1,16 @@
-import React, { useEffect,useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import {useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-//import * as FeatherIcon from 'react-feather';
-import { getUserList } from '../../../redux/user/actions';
+import { getTeamLeadList } from '../../../redux/teamLead/actions';
+import axios from 'axios';
 //import PageTitle from '../../components/PageTitle';
 
-
+import config from '../../../helpers/baseurl';
+var urlpattern =config.baseUrl;
 
 const defaultSorted = [
     {
@@ -37,7 +38,7 @@ const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) 
 );
 
 const TableWithSearch = (props) => {
-    const { SearchBar } = Search;
+    //const { SearchBar } = Search;
     //const dispatch = useDispatch();
     const [rowData, setrowData] = useState([]);
     //const [rowSelect, setrowSelect] = useState([]);
@@ -64,27 +65,12 @@ const TableWithSearch = (props) => {
                 <ToolkitProvider bootstrap4 keyField="ROW_NUMBER" data={props.records} columns={props.columns} search>
                     {(props) => (
                         <React.Fragment>
-                            <Row>
+                            {/* <Row>
                                 <Col md={6} className="">
                                     <SearchBar {...props.searchProps} />
                                 </Col>                    
-                            </Row>
-                            <Row className="mt-3">
-                            <Col md={3} className="">
-                                    <select className="form-control style-input">
-                                        <option selected>Select Name Here</option>
-                                    </select>
-                                </Col>   
-                            <Col md={3} className="">
-                                    <input type="date" className="form-control style-input"/>
-                                </Col>   
-                                <Col md={3} className="">
-                                    <input type="date" className="form-control style-input"/>
-                                </Col>   
-                                <Col md={3} className="">
-                                    <button className="btn btn-primary">Search</button>
-                                </Col>                     
-                            </Row>
+                            </Row> */}
+                            
 
                             <BootstrapTable
                                 {...props.baseProps}
@@ -116,15 +102,27 @@ const TableWithSearch = (props) => {
 
 const TeamLeadwise = () => {
 
-    const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Users.users);
-  // console.log(records, 'join list');
+    const dispatch = useDispatch();
+    const [teamleadwise, setteamleadwise]=useState([]);
+    const [teamlead, setteamlead]=useState('');
+    const [startdate, setstartdate]=useState('');
+    const [enddate, setenddate]=useState('');
+    let teamLeadList = useSelector((state) => state.TeamLead.teamlead || []);
     useEffect(() => {
-        dispatch(getUserList());
+        dispatch(getTeamLeadList());
+         // eslint-disable-next-line 
+     }, []);
+    const handleTeamLeadwiseForm = (e) => {
+    e.preventDefault();
+    axios
+        .get(`${urlpattern}DatewiseTeamLeadCount?teamlead=${teamlead}&ssd=${startdate}&eed=${enddate}`)
 
-        // eslint-disable-next-line 
-    }, []);
-
+        .then((response) => {
+           var setteamleadlist=response.data.Data;
+           setteamleadwise(setteamleadlist);
+        });
+};
+let records = teamleadwise || [];
     const columns = [
         {
             dataField:'id',
@@ -132,30 +130,56 @@ const TeamLeadwise = () => {
             hidden: true
         },
         {
-            dataField: 'ECode',
+            dataField: 'name',
             text: 'Name.',
             //sort: true,
         },
         {
-            dataField: 'EFullname',
+            dataField: 'submission',
             text: 'Submission',
             sort: true,
         },
         {
-            dataField: 'ECompany_Name',
+            dataField: 'interview',
             text: 'Interview',
         },
         {
-            dataField: 'EDesignation',
+            dataField: 'offer',
             text: 'Offer',
         },
         {
-            dataField: 'ELocation',
+            dataField: 'start',
             text: 'Start',
         }
     ]
     return (
         <React.Fragment>
+            <form onSubmit={handleTeamLeadwiseForm}>
+            <Row className="mt-3">
+                            <Col md={3} className="">
+                                    <select className="form-control style-input"
+                                    onChange={(event) => setteamlead(event.target.value)}>
+                                       <option selected desabled>Select</option>
+                                    {teamLeadList.map((teamLead,i) => (
+                                    <option key={i++} value={teamLead.EFullname}>
+                                        {teamLead.EFullname}
+                                    </option>
+                                ))}
+                                    </select>
+                                </Col>   
+                            <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"
+                                    onChange={(event) => setstartdate(event.target.value)}/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <input type="date" className="form-control style-input"
+                                    onChange={(event) => setenddate(event.target.value)}/>
+                                </Col>   
+                                <Col md={3} className="">
+                                    <button type="submit" className="btn btn-primary">Search</button>
+                                </Col>                     
+                            </Row>
+            </form>
             <Row>
                 <Col>
                     <TableWithSearch records={records} columns={columns} />

@@ -6,6 +6,8 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import $ from "jquery";
+import config from '../../../helpers/baseurl';
+var urlpattern =config.baseUrl;
 
 const defaultSorted = [
     {
@@ -100,7 +102,7 @@ const ViewCall = () => {
    //let records = useSelector((state) => state.SalesCallReport.calls);
    const [callrecord, setCallRecord]=useState([]);
    let loginDetails = useSelector((state)=> state.Auth.user || []);
-   console.log(loginDetails.Username);
+   //console.log(loginDetails.Username);
    
   // console.log(records, 'join list');
     useEffect(() => {
@@ -114,7 +116,7 @@ const ViewCall = () => {
         $.ajax
         ({
              
-            url: `http://144.48.250.235:98/api/SalesClientCallRecordMaster?username=${getUsername}`,
+            url: `${urlpattern}SalesClientCallRecordMaster?username=${getUsername}`,
             type:"GET",
             dataType:"JSON",
             

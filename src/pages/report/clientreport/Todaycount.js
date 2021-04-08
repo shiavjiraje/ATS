@@ -1,13 +1,16 @@
 import React, { useEffect,useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-//import * as FeatherIcon from 'react-feather';
-import { getTodayReportList } from '../../../redux/allreport/actions';
-//import PageTitle from '../../components/PageTitle';
+//import { getTodayReportList } from '../../../redux/allreport/actions';
+import $ from "jquery";
+import config from '../../../helpers/baseurl';
+
+
+var urlpattern =config.baseUrl;
 
 
 
@@ -100,15 +103,39 @@ const TableWithSearch = (props) => {
 
 const Todaycount = () => {
 
-    const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Report.todayrepoert);
+    //const dispatch = useDispatch(); 
+   //let records = useSelector((state) => state.Report.todayrepoert);
   // console.log(records, 'join list');
+  const [todayrecord, settodayRecord]=useState([]);
+   let loginDetails = useSelector((state)=> state.Auth.user || []);
     useEffect(() => {
-        dispatch(getTodayReportList());
+        getTodayReport();
 
         // eslint-disable-next-line 
     }, []);
-
+    const getTodayReport=()=>{
+        var getUsername = loginDetails.Username;
+        //alert("calling");
+        $.ajax
+        ({
+             
+            url: `${urlpattern}TodayReport?username=${getUsername}`,
+            type:"GET",
+            dataType:"JSON",
+            
+            
+            success: function(data) 
+            {
+               // debugger;
+                //console.log("log response on success");
+                console.log(data, "call records");
+                var alltodayrecord = data.Data;
+                settodayRecord(alltodayrecord);
+            }
+        });
+        
+    }
+    let records =todayrecord;
     const columns = [
         {
             dataField:'id',
