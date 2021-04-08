@@ -39,7 +39,8 @@ function* login({ payload: { username, password } }) {
        // const response = yield call(fetchJSON, '/users/authenticate', options);
        const response = yield call(fetchJSON, "http://144.48.250.235:98/api/login", options);
         setSession(response.Data);
-        console.log("working");
+        console.log("Login working", response.Data.Username);
+        localStorage.setItem('Username', response.Data.Username);
         yield put(loginUserSuccess(response.Data));
     } catch (error) {
         let message;

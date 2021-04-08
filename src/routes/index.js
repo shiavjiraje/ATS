@@ -32,6 +32,8 @@ const List =React.lazy(()=>import('../pages/list/List'));
 const Masters = React.lazy(()=> import('../pages/master/Masters'));
 //Report
 const Report = React.lazy(()=> import('../pages/report/Report'));
+//Report
+const Sales = React.lazy(()=> import('../pages/sales/Sales'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -156,10 +158,10 @@ const reportRoutes = {
 };
 //Revenue
 const revenueRoutes = {
-    path: '/revenue',
+    path: '/sales',
     name: 'Sales',
     icon: FeatherIcon.Shield,
-    component: dashboardOld,
+    component: Sales,
     route: PrivateRoute,
     roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };

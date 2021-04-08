@@ -16,3 +16,6 @@ export * from './clientwisesales/actions';
 export * from './salesuser/actions';
 export * from './allreport/actions';
 export * from './teamLead/actions';
+export * from './salesrevenue/actions';
+export * from './salesmonthreport/actions';
+export * from './salescallreport/actions';

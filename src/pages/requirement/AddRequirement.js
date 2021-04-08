@@ -163,7 +163,7 @@ const AddRequirement = (props) => {
                             onChange={(e) => {
                                 setJcreatedby (e.target.value);
                             }}
-                            name="jcreatedby "
+                            name="jcreatedby"
                         />
                         <FormGroup>
                             <Label for="empleadoApellidos">

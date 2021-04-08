@@ -18,6 +18,9 @@ import cwsSagas from './clientwisesales/sagas';
 import salesUserSagas from './salesuser/sagas';
 import reqReportSagas from './allreport/sagas';
 import teamLeadSagas from './teamLead/sagas';
+import revenueSagas from './salesrevenue/sagas';
+import monthSagas from './salesmonthreport/sagas';
+import callSagas from './salescallreport/sagas'
 export default function* rootSaga(getState: any): any {
     yield all( [
         authSaga(), 
@@ -38,5 +41,8 @@ export default function* rootSaga(getState: any): any {
        salesUserSagas(),
        reqReportSagas(),
        teamLeadSagas(),
+       revenueSagas(),
+       monthSagas(),
+       callSagas()
     ] );
 }

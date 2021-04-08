@@ -12,8 +12,8 @@ import { User } from 'react-feather';
 import { getClientList } from '../../redux/client/actions';
 import { getSalesUserList } from '../../redux/salesuser/actions';
 const AssignClient =(props)=>{
-    const [cid, setCid] = useState([]);
-    const [uid, setUid]= useState([]);
+    const [ setCid] = useState([]);
+    const [ setUid]= useState([]);
     let clientList = useSelector((state) => state.Client.clients || []);
     let salesUserList = useSelector((state) => state.SalesUser.salesuser || []);
    // console.log("cws", clientList)
@@ -23,14 +23,14 @@ const AssignClient =(props)=>{
         dispatch(getSalesUserList());
          // eslint-disable-next-line 
      }, []);
-     const handleSubmit = e => {
-        e.preventDefault();
-        const reqBody ={
-            cid:cid ,
-            uid:uid,
-        };
-        //dispatch(setUser(reqBody));
-    }
+    //  const handleSubmit = e => {
+    //     e.preventDefault();
+    //     const reqBody ={
+    //         cid:cid ,
+    //         uid:uid,
+    //     };
+    //     //dispatch(setUser(reqBody));
+    // }
         return (
             <React.Fragment>
                 <div className="container">

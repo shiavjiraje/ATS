@@ -153,7 +153,27 @@ export const getTodayReport=()=>{
 export const getRevenuReport=()=>{
    return api.get('/RevenueReportDateWise?username=ajay.zala@archesoftronix.com&ssd=2020-01-12&eed=2021-02-12');
 }
-
+// Sales Revenue 
+export const getRevenueList = () => {
+   return api.get( '/SalesMonthlyRevenueReport' );
+};
+export const setRevenue = (revenue) => {
+   return api.post( '/SalesMonthlyRevenueReport',revenue);
+};
+// Sales Month Report 
+export const getMonthList = () => {
+   return api.get( '/SalesMonthlyReport' );
+};
+export const setMonth = (month) => {
+   return api.post( '/SalesMonthlyReport',month);
+};
+// Sales Call Report 
+export const getCallList = () => {
+   return api.get( '/SalesClientCallRecordMaster?username=jigar.jadav@archesoftronix.com' );
+};
+export const setCall = (call) => {
+   return api.post( '/SalesClientCallRecordMaster',call);
+};
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{
     return api.get( '/Requirement_Master' );

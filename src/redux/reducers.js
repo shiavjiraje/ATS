@@ -19,6 +19,9 @@ import CWS from './clientwisesales/reducers';
 import SalesUser from './salesuser/reducers';
 import Report from'./allreport/reducers';
 import TeamLead from'./teamLead/reducers';
+import SalesRevenue from'./salesrevenue/reducers';
+import SalesMonthReport from'./salesmonthreport/reducers';
+import SalesCallReport from'./salescallreport/reducers';
 export default combineReducers({
     Auth,
     AppMenu,
@@ -37,5 +40,8 @@ export default combineReducers({
     CWS,
     SalesUser,
     Report,
-    TeamLead
+    TeamLead,
+    SalesRevenue,
+    SalesMonthReport,
+    SalesCallReport
 });
