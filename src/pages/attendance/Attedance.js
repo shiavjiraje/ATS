@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search,CSVExport } from 'react-bootstrap-table2-toolkit';
@@ -7,15 +7,14 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import {UncontrolledDropdown, DropdownMenu, DropdownToggle, Button } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
-import { getAttendanceList } from '../../redux/attendance/actions';
 import PageTitle from '../../components/PageTitle';
 
-// const defaultSorted = [
-//     {
-//         dataField: 'id',
-//         order: 'asc',
-//     },
-// ];
+import $ from "jquery";
+import config from '../../helpers/baseurl';
+
+
+var urlpattern =config.baseUrl;
+
 const { ExportCSVButton } = CSVExport;
 const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) => (
     <React.Fragment>
@@ -113,16 +112,37 @@ const TableWithSearch = (props) => {
 
 const Attendance = () => {
 
-    const dispatch = useDispatch(); 
-    let records = useSelector((state) => state.Attendance.attendance);
-    
-    console.log(records);
-    useEffect(() => {
-        dispatch(getAttendanceList());
-
-        // eslint-disable-next-line 
-    }, []);
-
+    const [attendancerecord, setAttendanceRecord]=useState([]);
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+     useEffect(() => {
+         getAttendanceReport();
+ 
+         // eslint-disable-next-line 
+     }, []);
+     const getAttendanceReport=()=>{
+         var getUsername = loginDetails.Username;
+         //alert("calling");
+         $.ajax
+         ({
+              
+             url: `${urlpattern}Attendance_Master?username=${getUsername}`,
+             type:"GET",
+             dataType:"JSON",
+             
+             
+             success: function(data) 
+             {
+                // debugger;
+                 //console.log("log response on success");
+                 console.log(data, "attendance records");
+                 var allAttendancerecord = data.Data;
+                 setAttendanceRecord(allAttendancerecord);
+             }
+         });
+         
+     }
+     
+let records = attendancerecord || [];
     const columns = [
         {
             dataField: 'date',

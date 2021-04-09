@@ -172,7 +172,7 @@ export const getCallList = () => {
    return api.get( '/SalesClientCallRecordMaster?username=jigar.jadav@archesoftronix.com' );
 };
 export const setCall = (call) => {
-   return api.post( '/SalesClientCallRecordMaster',call);
+   return api.post( '/HolidayMaster',call);
 };
 /** Departamentos endpoints */
 export const getDepartamentosList = () =>{

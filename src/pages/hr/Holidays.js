@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -8,6 +8,11 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 //import * as FeatherIcon from 'react-feather';
 import { getHolidayList } from '../../redux/holiday/actions';
+import config from '../../helpers/baseurl';
+import axios from 'axios';
+
+
+var urlpattern =config.baseUrl;
 //import PageTitle from '../../components/PageTitle';
 
 const defaultSorted = [
@@ -62,18 +67,7 @@ const TableWithSearch = (props) => {
                 <ToolkitProvider bootstrap4 keyField="ROW_NUMBER" data={props.records} columns={props.columns} search>
                     {(props) => (
                         <React.Fragment>
-                            <Row>
-                                <Col md={12} className="">
-                                <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                <button className="btn btn-primary pl-5 pr-5" type="button">Create</button>
-                                </div>
-                                <input type="text" className="form-control search-style" placeholder="Holiday Name :"/>
-                                <input type="date" className="form-control search-style" placeholder="Date :"/>
-                                <input type="text" className="form-control search-style" placeholder="Day"/>
-                                </div>
-                                </Col>                            
-                            </Row>
+                           
 
                             <BootstrapTable
                                 {...props.baseProps}
@@ -132,9 +126,61 @@ const Holidays = () => {
             text: 'Type',
         }
     ];
- 
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+    var getUsername = loginDetails.Username;
+    const [date, setdate]=useState('');
+    const [name, setname]=useState('');
+    const [day, setday]=useState('');
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+       const data ={
+        date:date,
+        name:name,
+        day:day,
+        type:"",
+        username:getUsername
+       }
+       var config = {
+        method: 'post',
+        url: `${urlpattern}HolidayMaster`,
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        dispatch(getHolidayList());
+      })
+      .catch(function (error) {
+       // swal(JSON.stringify(error.response.data.error.errors[0].title), "You clicked the button!", "error")
+      });
+     }
+    
     return (
         <React.Fragment>
+            <form onSubmit={handleSubmit}> 
+            <Row>
+                <Col md={12} className="">
+                <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                <button type="submit" className="btn btn-primary pl-5 pr-5">Create</button>
+                </div>
+                <input type="text" className="form-control search-style" placeholder="Holiday Name :"
+                 onChange={(e) => {
+                    setname (e.target.value);
+                }}/>
+                <input type="date" className="form-control search-style" placeholder="Date :"
+                 onChange={(e) => {
+                    setdate (e.target.value);
+                }}/>
+                <input type="text" className="form-control search-style" placeholder="Day"
+                 onChange={(e) => {
+                    setday (e.target.value);
+                }}/>
+                </div>
+                </Col>                            
+            </Row>
+            </form>
             <Row>
                 <Col>
                     <TableWithSearch records={records} columns={columns} />

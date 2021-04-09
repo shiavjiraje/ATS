@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import { getLeaveList } from '../../redux/leave/actions';
+//import { getLeaveList } from '../../redux/leave/actions';
 //import PageTitle from '../../components/PageTitle';
+import $ from "jquery";
+import config from '../../helpers/baseurl';
 
+
+var urlpattern =config.baseUrl;
 const defaultSorted = [
     {
         dataField: 'id',
@@ -35,17 +39,7 @@ const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) 
 
 const TableWithSearch = (props) => {
     const { SearchBar } = Search;
-    // const dispatch = useDispatch();
-
-    // const rowEvent = {
-    //     onDoubleClick: ( e, row, index ) => {
-
-    //         //dispatch( setList( row ) );
-
-    //        // dispatch( getJoinListModal() );
-    //         //console.log(props.result)
-    //     }
-    // }
+    
     const NoDataIndication = () => (
         <div className="spinner">
           <div className="rect1" />
@@ -96,18 +90,43 @@ const TableWithSearch = (props) => {
 
 const ViewLeave = () => {
 
-    const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.Leave.leave);
-    useEffect(() => {
-        dispatch(getLeaveList());
-
-        // eslint-disable-next-line 
-    }, []);
+    const [leaverecord, setleaveRecord]=useState([]);
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+     useEffect(() => {
+         getleaveReport();
+ 
+         // eslint-disable-next-line 
+     }, []);
+     const getleaveReport=()=>{
+         var getUsername = loginDetails.Username;
+         //alert("calling");
+         $.ajax
+         ({
+              
+             url: `${urlpattern}LeaveMaster?username=${getUsername}`,
+             type:"GET",
+             dataType:"JSON",
+             
+             
+             success: function(data) 
+             {
+                // debugger;
+                 //console.log("log response on success");
+                 console.log(data, "attendance records");
+                 var allLeaverecord = data.Data;
+                 setleaveRecord(allLeaverecord);
+             }
+         });
+         
+     }
+     console.log(leaverecord, "leaverecordleaverecord");
+let records = leaverecord || [];
 
     const columns = [
         {
             dataField: 'id',
-            text: 'Name.',
+            text: 'Id.',
+            hidden:true
         },
         {
             dataField:'type',
