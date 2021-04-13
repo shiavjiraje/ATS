@@ -121,11 +121,16 @@ const Attendance = () => {
      }, []);
      const getAttendanceReport=()=>{
          var getUsername = loginDetails.Username;
+         var getyear = new Date();
+         var newyear = getyear.getFullYear();
+         var getmonth = new Date();
+         var setmonth = getmonth.getMonth();
+         console.log(setmonth);
          //alert("calling");
          $.ajax
          ({
               
-             url: `${urlpattern}Attendance_Master?username=${getUsername}`,
+             url: `${urlpattern}Attendance_Master?username=${getUsername}&month=${setmonth+1}&year=${newyear}`,
              type:"GET",
              dataType:"JSON",
              

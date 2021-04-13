@@ -4,25 +4,28 @@ import { Row, Col, FormGroup, Form, Label} from 'reactstrap';
 import { getRecruiterList } from '../../../redux/recruiter/actions';
 import { getTeamLeadList } from '../../../redux/teamLead/actions';
 import { Multiselect } from "multiselect-react-dropdown";
-import moment from 'moment';
+//import moment from 'moment';
 import { createTeam } from '../../../redux/teammaster/actions';
 // import Select from 'react-select';
 const AddTeam = () => {
     //const [selectedValue, setSelectedValue] = useState([]);
-    var currentTime = moment().format('DD/MM/YYYY HH:mm'); 
+    //var currentTime = moment().format('DD/MM/YYYY HH:mm'); 
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
     let recruterList = useSelector((state) => state.Recruiter.recruiters || []);
     let teamLeadList = useSelector((state) => state.TeamLead.teamlead || []);
     //console.log("recruter", recruterList)
-    const [createdby, setCreatedby]=useState(currentTime);
+    var getUsername = loginDetails.Username;
+    const [createdby, setCreatedby]=useState(getUsername);
     const [teamlead, setTeamlead]=useState('');
-    const [teammember, setSelectedValue]=useState([]);
+    const [teammember, setSelectedValue]=useState('');
     const onSelect=(selectedList, selectedItem)=> {
         setSelectedValue(selectedList.map(x=>x.EFullname));
     }
-    
+  
     const onRemove=(selectedList, removedItem)=> {
         setSelectedValue(selectedList.map(x=>x.EFullname));
     }
+    
     const dispatch = useDispatch();
      useEffect(() => {
         dispatch(getRecruiterList());
@@ -31,10 +34,12 @@ const AddTeam = () => {
      }, []);
      const handleSubmit=(e)=>{
         e.preventDefault();
+        //var newteam =teammember;
+       // var teammemberlist = newteam.replace(/[\])}[{(]/g, '');
        const reqBody ={
-        createdby,
-        teamlead,
-        teammember
+        createdby:createdby,
+        teamlead:teamlead,
+        teammember:teammember.join()
        }
        dispatch(createTeam(reqBody));
      }
@@ -53,7 +58,7 @@ const AddTeam = () => {
                                     <input type="hidden" name="createdby" id="createdby" 
                                         onChange={(e) => {
                                             setCreatedby (e.target.value);
-                                        }}value={currentTime} />
+                                        }}value={getUsername} />
                                     <Label for="empleadoApellidos">Select Team Lead</Label>
                                    
                                     <select className="form-control" name="teamlead"
@@ -62,7 +67,7 @@ const AddTeam = () => {
                                     }}>
                                          <option selected desabled>Select</option>
                                     {teamLeadList.map((teamLead,i) => (
-                                    <option key={i++} value={teamLead.EId}>
+                                    <option key={i++} value={teamLead.EFullname}>
                                         {teamLead.EFullname}
                                     </option>
                                 ))}

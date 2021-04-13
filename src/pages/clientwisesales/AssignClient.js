@@ -11,34 +11,41 @@ import { AvForm, AvGroup, AvFeedback } from 'availity-reactstrap-validation';
 import { User } from 'react-feather';
 import { getClientList } from '../../redux/client/actions';
 import { getSalesUserList } from '../../redux/salesuser/actions';
+import { createCws } from '../../redux/clientwisesales/actions';
+import moment from 'moment';
 const AssignClient =(props)=>{
-    const [ setCid] = useState([]);
-    const [ setUid]= useState([]);
+    const [ cid, setCid] = useState([]);
+    const [ uid, setUid]= useState([]);
     let clientList = useSelector((state) => state.Client.clients || []);
     let salesUserList = useSelector((state) => state.SalesUser.salesuser || []);
-   // console.log("cws", clientList)
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+    //console.log("cws", salesUserList)
+    var currentTime = moment().format('YYYY-MM-DD'); 
     const dispatch = useDispatch();
      useEffect(() => {
         dispatch(getClientList());
         dispatch(getSalesUserList());
          // eslint-disable-next-line 
      }, []);
-    //  const handleSubmit = e => {
-    //     e.preventDefault();
-    //     const reqBody ={
-    //         cid:cid ,
-    //         uid:uid,
-    //     };
-    //     //dispatch(setUser(reqBody));
-    // }
+     const handleSubmit = e => {
+        var getUsername = loginDetails.Username;
+        e.preventDefault();
+        const reqBody ={
+            cid:cid ,
+            uid:uid,
+            username:getUsername,
+            createdatetime:currentTime
+        };
+        dispatch(createCws(reqBody));
+    }
         return (
             <React.Fragment>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 offset-md-3">
-                            <AvForm  className="authentication-form card p-5">
+                            <AvForm onSubmit={handleSubmit} className="authentication-form card p-5">
                                 
-                            <h5 className="text-uppercase  text-center">Apply Your Leave</h5>
+                            <h5 className="text-uppercase  text-center">Assign Client To Sales</h5>
                                 <AvGroup className="">
                                     <Label for="fullname">Select Sales User</Label>
                                     <InputGroup>
@@ -90,7 +97,7 @@ const AssignClient =(props)=>{
                                     <AvFeedback>This field is invalid</AvFeedback>
                                 </AvGroup>
                                 <FormGroup className="form-group mb-0 text-center">
-                                    <Button className="btn-block btn btn-secondary">
+                                    <Button type="submit" className="btn-block btn btn-secondary">
                                         Assign Client
                                     </Button>
                                 </FormGroup>

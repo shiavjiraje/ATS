@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import {
     Label,
@@ -9,16 +9,52 @@ import {
 } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
 import { Mail, User, Phone, Slack } from 'react-feather';
+import config from '../../helpers/baseurl';
+import axios from 'axios';
+import SearchResumeData from './SearchResumeData';
+//import $ from "jquery";
 
-class SearchResume extends Component {
+var urlpattern =config.baseUrl;
 
-    render() {
+const SearchResume =()=> {
+    const [byname, setbyname]=useState('');
+    const [byemail, setbyemail]=useState('');
+    const [bynumber, setbynumber]=useState('');
+    const [byskill, setbyskill]=useState('');
+    const [serchresume, setserchresume]=useState([]);
+    const handlesubmit=()=>{
+        var data = JSON.stringify({
+            byname: byname,
+            byemail: byemail,
+            bynumber: bynumber,
+            byskill: byskill
+        });
+        
+        var config = {
+          method: 'post',
+          url: `${urlpattern}SearchResume`,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+            var resumedata =response.data.Data;
+            setserchresume(resumedata);
+          //console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+            }
         return (
             <React.Fragment>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 offset-md-3">
-                            <AvForm onValidSubmit={this.handleValidSubmit} className="authentication-form card p-5">
+                            <AvForm onSubmit={handlesubmit} className="authentication-form card p-5">
                                 
                             <h5 className="text-uppercase  text-center">Search By Resume</h5>
                                 <AvGroup className="">
@@ -31,9 +67,12 @@ class SearchResume extends Component {
                                         </InputGroupAddon>
                                         <AvInput
                                             type="text"
-                                            name="fullname"
-                                            id="fullname"
-                                            required
+                                            name="byname"
+                                            id="byname"
+                                            onChange={(e,i) => {
+                                                setbyname(e.target.value);
+                                            }}
+                                            
                                         />
                                     </InputGroup>
 
@@ -49,9 +88,12 @@ class SearchResume extends Component {
                                         </InputGroupAddon>
                                         <AvInput
                                             type="email"
-                                            name="email"
-                                            id="email"
-                                            required
+                                            name="byemail"
+                                            id="byemail"
+                                            onChange={(e,i) => {
+                                                setbyemail(e.target.value);
+                                            }}
+                                            
                                         />
                                     </InputGroup>
 
@@ -68,9 +110,12 @@ class SearchResume extends Component {
                                         </InputGroupAddon>
                                         <AvInput
                                             type="text"
-                                            name="password"
-                                            id="password"
-                                            required
+                                            name="bynumber"
+                                            id="bynumber"
+                                            onChange={(e,i) => {
+                                                setbynumber(e.target.value);
+                                            }}
+                                            
                                         />
                                     </InputGroup>
                                     <AvFeedback>This field is invalid</AvFeedback>
@@ -85,9 +130,12 @@ class SearchResume extends Component {
                                         </InputGroupAddon>
                                         <AvInput
                                             type="text"
-                                            name="password"
-                                            id="password"
-                                            required
+                                            name="byskill"
+                                            onChange={(e,i) => {
+                                                setbyskill(e.target.value);
+                                            }}
+                                            id="byskill"
+                                            
                                         />
                                     </InputGroup>
                                     <AvFeedback>This field is invalid</AvFeedback>
@@ -98,12 +146,18 @@ class SearchResume extends Component {
                                     </Button>
                                 </FormGroup>
                             </AvForm>
+                            
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-12">
+                        <SearchResumeData serchresume={serchresume}/>
                         </div>
                     </div>
                 </div>
             </React.Fragment>
         );
     }
-}
+
 
 export default SearchResume;

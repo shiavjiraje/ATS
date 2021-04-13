@@ -23,7 +23,7 @@ const ApplyForLeave =()=> {
         enddate:enddate,
         reason:reason,
         createby:getUsername,
-        noofdays:"1"
+        noofdays:""
        }
        var config = {
         method: 'post',
