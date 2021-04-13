@@ -102,6 +102,7 @@ const AttendanceReport = () => {
 
     const dispatch = useDispatch(); 
     let records = useSelector((state) => state.Attendance.attendance);
+    
    //console.log(records)
     useEffect(() => {
         dispatch(getAttendanceList());
