@@ -10,10 +10,12 @@ import * as FeatherIcon from 'react-feather';
 import { getRequirementList, getRequirementModal, setSaveRequirement } from '../../redux/requirement/actions';
 import EditRequirementmodal from './EditRequirementmodal';
 import axios from 'axios';
-//import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-//import PageTitle from '../../components/PageTitle';
-//import AddUserModal from '../user/AddUserModal';
-//import EditRequirementmodal from './EditRequirementmodal';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import classnames from 'classnames';
+import ShowRequirement from './ShowRequirement';
+import ResumeUpload from './ResumeUpload';
+import SetInterview from './SetInterview';
+import SetOffer from './SetOffer';
 
 const defaultSorted = [
     {
@@ -98,6 +100,7 @@ const TableWithSearch = (props) => {
                                 {...props.baseProps}
                                 bordered={false}
                                 defaultSorted={defaultSorted}
+                                wrapperClasses="table-responsive"
                                 //rowEvents={rowEvent}
                                 noDataIndication={ () => <NoDataIndication /> }
                                 pagination={
@@ -158,6 +161,14 @@ const ViewRequirement = (props) => {
     console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
+
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if(activeTab !== tab) setActiveTab(tab);
+  }
+ 
+  const[showrequrement, setshowrequrement]=useState(true);
     const columns = [
         {
             dataField: 'jobcode',
@@ -170,6 +181,18 @@ const ViewRequirement = (props) => {
         {
             dataField: 'jskill',
             text: 'Skill',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => showRequrementDetails(row)}
+                    title="Edit"
+                  >
+                   {row.jskill}
+                  </button>
+                );
+              },
         },
         {
             dataField: 'jposition',
@@ -219,6 +242,54 @@ const ViewRequirement = (props) => {
                 );
               },
             //formatter:editRequirement
+        },
+        {
+            dataField: 'resume',
+            text: 'Resume',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => showResumeUploadtDetails(row)}
+                    title="Edit"
+                  >
+                   Resume
+                  </button>
+                );
+              },
+        },
+        {
+            dataField: 'interview',
+            text: 'Interview',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => showSetInterviewDetails(row)}
+                    title="Edit"
+                  >
+                   Interview
+                  </button>
+                );
+              },
+        },
+        {
+            dataField: 'offer',
+            text: 'Offer',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => showSetOfferDetails(row)}
+                    title="Edit"
+                  >
+                   Offer
+                  </button>
+                );
+              },
         }
     ];
     function _validateFunction(row , id) {    
@@ -229,7 +300,35 @@ const ViewRequirement = (props) => {
 
             dispatch( getRequirementModal() );
     }
-    
+    const[viewSingleRequirement, setviewSingleRequirement]=useState([]);
+    function showRequrementDetails(row , id) {  
+        setshowrequrement(!showrequrement);
+        var viewrequrementdetails =row;
+       // console.log(row, "showRequrementDetails");
+        setviewSingleRequirement(viewrequrementdetails);
+        setActiveTab('1');
+     }
+     function showResumeUploadtDetails(row , id) {  
+        setshowrequrement(!showrequrement);
+        var viewrequrementdetails =row;
+       // console.log(row, "showRequrementDetails");
+        setviewSingleRequirement(viewrequrementdetails);
+        setActiveTab('2');
+     }
+     function showSetInterviewDetails(row , id) {  
+        setshowrequrement(!showrequrement);
+        var viewrequrementdetails =row;
+       // console.log(row, "showRequrementDetails");
+        setviewSingleRequirement(viewrequrementdetails);
+        setActiveTab('3');
+     }
+     function showSetOfferDetails(row , id) {  
+        setshowrequrement(!showrequrement);
+        var viewrequrementdetails =row;
+       // console.log(row, "showRequrementDetails");
+        setviewSingleRequirement(viewrequrementdetails);
+        setActiveTab('4');
+     }
     function actionRequirement(cell, row) {     
         return <label>
                <button type="button" 
@@ -241,20 +340,93 @@ const ViewRequirement = (props) => {
                
                </label> 
                       
-   }   return (
+   }  
+//    Requirement details section
+const goBackToRequirement=()=>{
+    setshowrequrement(!showrequrement);
+    
+}
+   return (
         <React.Fragment>
+            {showrequrement ?
             <Row>
                 <Col>
                 <EditRequirementmodal/>
                 <form onSubmit={handleSubmit}>
-      <h1>React File Upload</h1>
-      <input type="file" onChange={handleOnChange} />
-      <button type="submit">Upload File</button>
-    </form>
+                <Row>
+                    <Col lg={3}> <input type="file" className="form-control" onChange={handleOnChange} /></Col>
+                    <Col lg={3}><button className="btn btn-primary" type="submit">Upload File</button></Col>
+                 </Row>
+                </form>
                     <TableWithSearch records={records} columns={columns} />
                 </Col>
             </Row>
+            :
+            <Row>
+            <div className="col-sm-12">
+            <Nav tabs className="second-level-tab nav nav-tabs justify-content-start">
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '1' })}
+            onClick={() => { toggle('1'); }}
+          >
             
+          </NavLink>
+        </NavItem>
+        <NavItem className="upload-li">
+          <NavLink
+            className={ classnames({ active: activeTab === '2' })}
+            onClick={() => { toggle('2'); }}
+          >
+            Upload Resume
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '3' })}
+            onClick={() => { toggle('3'); }}
+          >
+            Set Interview
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '4' })}
+            onClick={() => { toggle('4'); }}
+          >
+            Offer
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent className="req-tab-content" activeTab={activeTab}>
+          
+        <TabPane tabId="1">
+            <Row>
+                <div className="header-info">Requirement Details</div>
+            </Row>
+            <Col sm="12">
+              <ShowRequirement viewSingleRequirement={viewSingleRequirement} goBackToRequirement={goBackToRequirement}/>
+            </Col>
+        </TabPane>
+        <TabPane tabId="2">
+            <Col sm="12">
+             <ResumeUpload viewSingleRequirement={viewSingleRequirement} goBackToRequirement={goBackToRequirement}/>
+            </Col>
+        </TabPane>
+        <TabPane tabId="3">
+            <Col sm="12">
+             <SetInterview viewSingleRequirement={viewSingleRequirement} goBackToRequirement={goBackToRequirement}/>
+            </Col>
+        </TabPane>
+        <TabPane tabId="4">
+            <Col sm="12">
+              <SetOffer viewSingleRequirement={viewSingleRequirement} goBackToRequirement={goBackToRequirement}/>
+            </Col>
+        </TabPane>
+      </TabContent>
+    </div>
+            </Row>
+}
         </React.Fragment>
     );
 };
