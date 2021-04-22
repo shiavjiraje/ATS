@@ -99,7 +99,7 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ShowRequirementCritical = (props) => {
+const ShowRequirement = (props) => {
 
     //const dispatch = useDispatch(); 
     //let records =  [];
@@ -209,24 +209,24 @@ console.log(records,"viewSingleRequirement records");
            <Row>
            <Col className="text-right" lg={12}><button className="btn btn-primary" onClick={props.goBackToRequirement}>Go Back To Requirement</button></Col>
                 <Col lg={6} className="mt-2">
-                  <label className="col-sm-12"><b>Job Code :</b> {showrdt.jobcode} </label>
-                  <label className="col-sm-12"><b>Client Name :</b> {showrdt.jclientname}</label>
-                  <label className="col-sm-12"><b>Skill :</b> {showrdt.jskill}</label>
-                  <label className="col-sm-12"><b>Position :</b> {showrdt.jposition}</label>
-                  <label className="col-sm-12"><b>Location :</b> {showrdt.jlocation}</label>
-                  <label className="col-sm-12"><b>End Client :</b> {showrdt.jendclient}</label>
-                  <label className="col-sm-12"><b>Total Experience :</b> {showrdt.jtotmax} Years &nbsp;To &nbsp;{showrdt.jtotmin} Years</label>
-                  <label className="col-sm-12"><b>Relevent Experience :</b> {showrdt.jrelmax} Years&nbsp; To &nbsp;{showrdt.jrelmin} Years</label>
+                  <label className="col-sm-12"><b>Job Code :</b> {showrdt.c.J_Code} </label>
+                  <label className="col-sm-12"><b>Client Name :</b> {showrdt.d.C_Name}</label>
+                  <label className="col-sm-12"><b>Skill :</b> {showrdt.c.J_Skill}</label>
+                  <label className="col-sm-12"><b>Position :</b> {showrdt.c.J_Position}</label>
+                  <label className="col-sm-12"><b>Location :</b> {showrdt.c.J_Location}</label>
+                  <label className="col-sm-12"><b>End Client :</b> {showrdt.c.J_EndClient}</label>
+                  <label className="col-sm-12"><b>Total Experience :</b> {showrdt.c.J_Tot_Max_Exp} Years &nbsp;To &nbsp;{showrdt.c.J_Tot_Min_Exp} Years</label>
+                  <label className="col-sm-12"><b>Relevent Experience :</b> {showrdt.c.J_Rel_Max_Exp} Years&nbsp; To &nbsp;{showrdt.c.J_Rel_Min_Exp} Years</label>
                 </Col>
                 <Col lg={6}>
-                  <label className="col-sm-12"><b>Category :</b> {showrdt.jcategory}</label>
-                  <label className="col-sm-12"><b>Type :</b> {showrdt.jtype}</label>
-                  <label className="col-sm-12"><b>Employement Type :</b> {showrdt.jemployementtyp}</label>
-                  <label className="col-sm-12"><b>POC Name :</b> {showrdt.jpoc}</label>
-                  <label className="col-sm-12"><b>Assign User : </b>{showrdt.jassignuser}</label>
-                  <label className="col-sm-12"><b>Mandatory Skill :</b> {showrdt.jmandatoryskill}</label>
-                  <label className="col-sm-12"><b>Job Description : </b>{showrdt.jjd}</label>
-                  <label className="col-sm-12"><b>Test Requirement :</b> {showrdt.jskill}</label>
+                  <label className="col-sm-12"><b>Category :</b> {showrdt.d.C_Category}</label>
+                  <label className="col-sm-12"><b>Type :</b> {showrdt.c.C_Type}</label>
+                  <label className="col-sm-12"><b>Employement Type :</b> {showrdt.c.J_Employment_Type}</label>
+                  <label className="col-sm-12"><b>POC Name :</b> {showrdt.c.J_POC}</label>
+                  <label className="col-sm-12"><b>Assign User : </b>{showrdt.c.J_AssignUser}</label>
+                  <label className="col-sm-12"><b>Mandatory Skill :</b> {showrdt.c.J_MandatorySkill}</label>
+                  <label className="col-sm-12"><b>Job Description : </b>{showrdt.c.J_JD}</label>
+                  <label className="col-sm-12"><b>Test Requirement :</b> {showrdt.c.J_Skill}</label>
                 </Col>
            </Row>     
             <Row>
@@ -238,6 +238,6 @@ console.log(records,"viewSingleRequirement records");
     );
 };
 
-export default ShowRequirementCritical;
+export default ShowRequirement;
 
 

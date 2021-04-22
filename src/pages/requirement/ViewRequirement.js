@@ -9,6 +9,7 @@ import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
 import { getRequirementList, getRequirementModal, setSaveRequirement } from '../../redux/requirement/actions';
 import EditRequirementmodal from './EditRequirementmodal';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
@@ -16,7 +17,10 @@ import ShowRequirement from './ShowRequirement';
 import ResumeUpload from './ResumeUpload';
 import SetInterview from './SetInterview';
 import SetOffer from './SetOffer';
+import config from '../../helpers/baseurl';
+//import axios from 'axios';
 
+var urlpattern = config.baseUrl;
 const defaultSorted = [
     {
         dataField: 'id',
@@ -224,25 +228,36 @@ const ViewRequirement = (props) => {
         {
             dataField: 'actions',
             text: 'Action',
-            formatter:actionRequirement
-        },
-        {
-            dataField: 'edit',
-            text: 'Edit',
             formatter: (cellContent, row) => {
                 //const id = row.jid;
                 return (
                   <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => showActionStatus(row)}
                     title="Edit"
                   >
-                   <FeatherIcon.Edit />
+                   Action
                   </button>
                 );
               },
-            //formatter:editRequirement
         },
+        {
+            dataField: 'summary',
+            text: 'Summary',
+            formatter: (cellContent, row) => {
+                //const id = row.jid;
+                return (
+                  <button
+                  className="btn btn-link text-secondary p-0"
+                    onClick={() => setsummarydeatailsmodal(row)}
+                    title="Edit"
+                  >
+                   Summary
+                  </button>
+                );
+              },
+        },
+        
         {
             dataField: 'resume',
             text: 'Resume',
@@ -290,8 +305,101 @@ const ViewRequirement = (props) => {
                   </button>
                 );
               },
-        }
+              
+        },
+        {
+          dataField: 'edit',
+          text: 'Edit',
+          formatter: (cellContent, row) => {
+              //const id = row.jid;
+              return (
+                <button
+                className="btn btn-link text-secondary"
+                  onClick={() => _validateFunction(row)}
+                  title="Edit"
+                >
+                 <FeatherIcon.Edit />
+                </button>
+              );
+            },
+          //formatter:editRequirement
+      },
+
     ];
+     //Action modal start///
+    const [modal2, setModal2] = useState(false);
+    const  [status, setstatus] = useState('');
+    const [jid, setjid]=useState('');
+    const toggle2 = () => setModal2(!modal2);
+    function showActionStatus(row, id) {
+        var newjid =row.jid;
+        setjid(newjid);
+        toggle2();
+    }
+    const {
+        // buttonLabel,
+         className
+       } = props;
+    const handleSubmitAction = (e) => {
+        e.preventDefault();
+      //var getcfid=formtDetails.cfid;
+       var data = {
+        status: status,
+        jid:jid
+      };
+        
+        var config = {
+          method: 'PUT',
+          url: `${urlpattern}UpdateRequirementStatus?jid=${jid}&status=${status}`,          
+          data : data
+        };
+        console.log(data);
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          getRequirementList();
+          //swal("Status Updated Successful", "success");
+          toggle2();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      };
+
+    //Action modal end///
+    //Summary modal start///  
+    const [modal3, setModal3] = useState(false);
+    //const [summaryjid, setsummaryjid]=useState();
+    const toggle3 = () => setModal3(!modal3);
+    const [summarydetails, setsummarydetails]=useState([]);
+    function setsummarydeatailsmodal(row, id) {
+       // var newjid =row.jid;
+        
+       // setsummaryjid(row.jid);
+              
+        toggle3();
+        var config = {
+            method: 'GET',
+            url: `${urlpattern}ViewRequirementSummary?jid=${row.jid}`,   
+          };
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data.Data));
+           var newsumdeta= response.data.Data;
+           setsummarydetails(newsumdeta);
+            //swal("Status Updated Successful", "success");
+            //toggle2();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+    // const handleSubmitSummry = (e) => {   
+    //     console.log(summaryjid, "findal summary");  
+       
+    //   };
+      //Summary modal end
     function _validateFunction(row , id) {    
        // console.log("activity id :",(id));
         // dispatch(getRequirementModal((row)));
@@ -329,23 +437,14 @@ const ViewRequirement = (props) => {
         setviewSingleRequirement(viewrequrementdetails);
         setActiveTab('4');
      }
-    function actionRequirement(cell, row) {     
-        return <label>
-               <button type="button" 
-                               id="actionButton" title="Action"
-                       onClick={() => {_validateFunction(row=[])}} 
-                       className="btn btn-link text-secondary">
-                            <FeatherIcon.Target />
-               </button>
-               
-               </label> 
-                      
-   }  
+   
 //    Requirement details section
 const goBackToRequirement=()=>{
     setshowrequrement(!showrequrement);
     
 }
+var setsumrymodal =summarydetails || [];
+console.log(setsumrymodal, "modal summary data");
    return (
         <React.Fragment>
             {showrequrement ?
@@ -427,6 +526,53 @@ const goBackToRequirement=()=>{
     </div>
             </Row>
 }
+<Modal isOpen={modal2} toggle={toggle2} className={className}>
+            <form onSubmit={handleSubmitAction}>
+        <ModalHeader toggle={toggle2}>Change Status</ModalHeader>
+        <ModalBody>
+        <Row>
+                       <Col lg={12}>
+                     <label>Status</label>
+                           <select className="form-control"
+                            onChange={(e) => {
+                                setstatus(e.target.value);
+                              }}
+                              name="status">
+                               <option value="">Select</option>
+                               <option value="Active">Active</option>
+                               <option value="Deactive">Deactive</option>
+                               <option value="Hold">Hold</option>
+                               <option value="Delete">Delete</option>
+                               <option value="Close">Close</option>
+                           </select>
+                       </Col>
+                       </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" type="submit">Save</Button>{' '}
+          <Button color="primary" onClick={toggle2}>Cancel</Button>
+        </ModalFooter>
+        </form>
+      </Modal>
+      <Modal isOpen={modal3} toggle={toggle3} className={className}>
+            <form onSubmit={handleSubmitAction}>
+        {/* <ModalHeader toggle={toggle3}>Change Status</ModalHeader> */}
+        <ModalBody>
+        <Row>
+            <Col lg={12}>
+                     <label>Submission : {summarydetails.submission}</label><br/>
+                     <label>Interview : {summarydetails.interview}</label><br/>
+                     <label>Offer : {summarydetails.offer}</label><br/>
+                     <label>Start : {summarydetails.start}</label><br/>
+                     <label>BD : {summarydetails.bd}</label><br/>
+             </Col>
+        </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle3}>Close</Button>
+        </ModalFooter>
+        </form>
+      </Modal>
         </React.Fragment>
     );
 };

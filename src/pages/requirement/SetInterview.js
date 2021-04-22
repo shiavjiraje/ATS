@@ -9,7 +9,8 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 //import * as FeatherIcon from 'react-feather';
 import config from '../../helpers/baseurl';
 //import axios from 'axios';
-
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import axios from 'axios';
 var urlpattern = config.baseUrl;
 
 const defaultSorted = [
@@ -169,9 +170,7 @@ const SetInterview = (props) => {
                         type="button"
                         id="actionButton"
                         title="Action"
-                        onClick={() => {
-                            _validateFunction((row = []));
-                        }}
+                        onClick={() => changeInterViewStatus(row)}
                         className="btn btn-link text-secondary p-0">
                         Change
                         {/* <i className="uil uil-file-exclamation-alt"></i> */}
@@ -180,13 +179,45 @@ const SetInterview = (props) => {
             },
         },
     ];
-    function _validateFunction(row, id) {
-        // console.log("activity id :",(id));
-        // dispatch(getRequirementModal((row)));
-        //dispatch( setSaveRequirement( row) );
-        //   dispatch( getRequirementModal() );
+   
+    const [modal, setModal] = useState(false);
+    const  [status, setstatus] = useState('');
+    const[interviewid, setinterviewid]=useState('');
+    const toggle = () => setModal(!modal);
+    function changeInterViewStatus(row, id) {
+        var interviewid =row.iid;
+        setinterviewid(interviewid);
+        toggle();
     }
-
+    const {
+        // buttonLabel,
+         className
+       } = props;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+      //var getcfid=formtDetails.cfid;
+       var data = {
+        status: status,
+        cfid:interviewid
+      };
+        
+        var config = {
+          method: 'PUT',
+          url: `${urlpattern}InterviewMaster?interviewid=${interviewid}&status=${status}`,          
+          data : data
+        };
+        console.log(data);
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          getAllRequirementMaster();
+          //swal("Status Updated Successful", "success");
+          toggle();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      };
     return (
         <React.Fragment>
             <Row>
@@ -195,6 +226,31 @@ const SetInterview = (props) => {
                     <TableWithSearch records={records} columns={columns} />
                 </Col>
             </Row>
+            <Modal isOpen={modal} toggle={toggle} className={className}>
+            <form onSubmit={handleSubmit}>
+        <ModalHeader toggle={toggle}>Change Status</ModalHeader>
+        <ModalBody>
+        <Row>
+                       <Col lg={12}>
+                     <label>Status</label>
+                           <select className="form-control"
+                            onChange={(e) => {
+                                setstatus(e.target.value);
+                              }}
+                              name="status">
+                               <option value="">Select</option>
+                               <option value="Set">Set</option>
+                               <option value="Offer">Offer</option>
+                           </select>
+                       </Col>
+                       </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" type="submit">Save</Button>{' '}
+          <Button color="primary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+        </form>
+      </Modal>
         </React.Fragment>
     );
 };

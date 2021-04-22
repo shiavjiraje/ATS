@@ -50,12 +50,12 @@ const Graph = () => {
         xaxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             title: {
-                text: 'Ultima actualization hace 15 min',
+                text: 'Subbmission Interview',
             },
         },
         yaxis: {
             title: {
-                text: 'Temperature',
+                text: 'Subbmission/Interview',
             },
             min: 5,
             max: 40,
@@ -86,12 +86,16 @@ const Graph = () => {
 
     const apexLineChartWithLablesData = [
         {
-            name: 'High - 2018',
+            name: 'Submission',
             data: [28, 29, 33, 36, 32, 32, 33],
         },
         {
-            name: 'Low - 2018',
+            name: 'Interview',
             data: [12, 11, 14, 18, 17, 13, 13],
+        },
+        {
+            name: 'Offer',
+            data: [8, 9, 11, 12, 17, 13, 13],
         },
     ];
 

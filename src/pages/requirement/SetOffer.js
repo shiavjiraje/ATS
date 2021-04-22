@@ -5,9 +5,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-//import PageTitle from '../../components/PageTitle';
-//import * as FeatherIcon from 'react-feather';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import config from '../../helpers/baseurl';
+import axios from 'axios';
 //import axios from 'axios';
 
 var urlpattern = config.baseUrl;
@@ -169,9 +169,7 @@ const SetOffer = (props) => {
                         type="button"
                         id="actionButton"
                         title="Action"
-                        onClick={() => {
-                            _validateFunction((row = []));
-                        }}
+                        onClick={() => changeOfferViewStatus(row)}
                         className="btn btn-link text-secondary p-0">
                         Change
                         {/* <i className="uil uil-file-exclamation-alt"></i> */}
@@ -180,13 +178,44 @@ const SetOffer = (props) => {
             },
         },
     ];
-    function _validateFunction(row, id) {
-        // console.log("activity id :",(id));
-        // dispatch(getRequirementModal((row)));
-        //dispatch( setSaveRequirement( row) );
-        //   dispatch( getRequirementModal() );
+    const [modal, setModal] = useState(false);
+    const  [status, setstatus] = useState('');
+    const[offerId, setofferId]=useState('');
+    const toggle = () => setModal(!modal);
+    function changeOfferViewStatus(row, id) {
+        var offerId =row.offerid;
+        setofferId(offerId);
+        toggle();
     }
-
+    const {
+        // buttonLabel,
+         className
+       } = props;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+      //var getcfid=formtDetails.cfid;
+       var data = {
+        status: status,
+        cfid:offerId
+      };
+        
+        var config = {
+          method: 'PUT',
+          url: `${urlpattern}OfferMaster?offerid=${offerId}&status=${status}`,          
+          data : data
+        };
+        console.log(data);
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          getAllRequirementMaster();
+          //swal("Status Updated Successful", "success");
+          toggle();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      };
     return (
         <React.Fragment>
             <Row>
@@ -195,6 +224,34 @@ const SetOffer = (props) => {
                     <TableWithSearch records={records} columns={columns} />
                 </Col>
             </Row>
+            <Modal isOpen={modal} toggle={toggle} className={className}>
+            <form onSubmit={handleSubmit}>
+        <ModalHeader toggle={toggle}>Change Status</ModalHeader>
+        <ModalBody>
+        <Row>
+                       <Col lg={12}>
+                     <label>Status</label>
+                           <select className="form-control"
+                            onChange={(e) => {
+                                setstatus(e.target.value);
+                              }}
+                              name="status">
+                               <option value="">Select</option>
+                               <option value="To Be Join">To Be Join</option>
+                               <option value="Hold">Hold</option>
+                               <option value="BD">BD</option>
+                               <option value="Join">Join</option>
+                               <option value="Reject">Reject</option>
+                           </select>
+                       </Col>
+                       </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" type="submit">Save</Button>{' '}
+          <Button color="primary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+        </form>
+      </Modal>
         </React.Fragment>
     );
 };

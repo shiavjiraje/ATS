@@ -34,6 +34,10 @@ const Masters = React.lazy(()=> import('../pages/master/Masters'));
 const Report = React.lazy(()=> import('../pages/report/Report'));
 //Report
 const Sales = React.lazy(()=> import('../pages/sales/Sales'));
+//Hrpolicy
+const HrPolicy = React.lazy(()=> import('../pages/hrpolicy/HrPolicy'));
+//EmplHandbook
+const EmplHandbook = React.lazy(()=> import('../pages/employehandbook/EmplHandbook'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -100,6 +104,22 @@ const attendanceRoutes= {
     name: 'Attendance',
     roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
     component: Attendance,
+    route: PrivateRoute,
+};
+//HrPolicy
+const hrpolicyRoutes= {
+    path: '/hrpolicy',
+    name: 'HrPolicy',
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
+    component: HrPolicy,
+    route: PrivateRoute,
+};
+//EmplHandbook
+const emphandbookRoutes= {
+    path: '/employeehandbook',
+    name: 'HrPolicy',
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
+    component: EmplHandbook,
     route: PrivateRoute,
 };
 //activity
@@ -253,7 +273,9 @@ const allRoutes = [
     requirementRoutes,
     attendanceRoutes,
     listRoutes,
-    viewUserRoutes
+    viewUserRoutes,
+    hrpolicyRoutes,
+    emphandbookRoutes
 ];
 
 const authProtectedRoutes = [dashboardRoutes, activityRoutes, hrRoutes, masterRoutes, clientWiseSalesRoutes,reportRoutes,revenueRoutes,asplRoutes];

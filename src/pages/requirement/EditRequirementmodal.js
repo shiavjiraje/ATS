@@ -13,7 +13,11 @@ const EditRequirementmodal = (props, row) => {
 
     const modal = useSelector((state) => state.Requirements.modal);
     const requirmentStore = useSelector((state) => state.Requirements.requirement);
+   // let clientList = useSelector((state) => state.Client.clients || []);
+    //console.log(requirmentStore.jid,"requirmentStorerequirmentStore");
+    var reqjid =requirmentStore.jid;
     const [requirement, setRequirement] = useState( {
+      jid:reqjid,  
       jobcode: '',
       jskill:'',
   } );
@@ -25,6 +29,7 @@ const EditRequirementmodal = (props, row) => {
       
       setRequirement( {
           ...requirement,
+          reqjid:requirmentStore ?requirmentStore.jid:reqjid,
           jobcode: requirmentStore ? requirmentStore.jobcode : '',
           jskill:requirmentStore ? requirmentStore.jskill:'',
       } );
@@ -32,7 +37,7 @@ const EditRequirementmodal = (props, row) => {
       // eslint-disable-next-line
     }, [requirmentStore] );
 
-    console.log("Edit Requirement id :", requirmentStore);
+    //console.log("Edit Requirement id :", requirmentStore);
     const toggle = () => {
         if (!modal) {
             dispatch(actions.getRequirementModal());
