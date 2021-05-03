@@ -38,6 +38,8 @@ const Sales = React.lazy(()=> import('../pages/sales/Sales'));
 const HrPolicy = React.lazy(()=> import('../pages/hrpolicy/HrPolicy'));
 //EmplHandbook
 const EmplHandbook = React.lazy(()=> import('../pages/employehandbook/EmplHandbook'));
+//Appraisal
+const Appraisal = React.lazy(()=> import('../pages/appraisal/Appraisal'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -194,6 +196,15 @@ const asplRoutes = {
     route: PrivateRoute,
     roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };
+//Aspl
+const appraisalRoutes = {
+    path: '/appraisal',
+    name: 'Appraisal',
+    icon: FeatherIcon.Star,
+    component: Appraisal,
+    route: PrivateRoute,
+    roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
+};
 //Rt
 // const rtRoutes = {
 //     path: '/rt',
@@ -275,9 +286,10 @@ const allRoutes = [
     listRoutes,
     viewUserRoutes,
     hrpolicyRoutes,
-    emphandbookRoutes
+    emphandbookRoutes,
+    appraisalRoutes
 ];
 
-const authProtectedRoutes = [dashboardRoutes, activityRoutes, hrRoutes, masterRoutes, clientWiseSalesRoutes,reportRoutes,revenueRoutes,asplRoutes];
+const authProtectedRoutes = [dashboardRoutes, activityRoutes, hrRoutes, masterRoutes, clientWiseSalesRoutes,reportRoutes,revenueRoutes,asplRoutes, appraisalRoutes];
 const allFlattenRoutes = flattenRoutes(allRoutes);
 export { allRoutes, authProtectedRoutes, allFlattenRoutes };

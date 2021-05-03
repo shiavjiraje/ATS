@@ -7,7 +7,10 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import * as FeatherIcon from 'react-feather';
 import { getTeamList } from '../../../redux/teammaster/actions';
-//import PageTitle from '../../components/PageTitle';
+import axios from 'axios';
+import config from '../../../helpers/baseurl';
+import swal from 'sweetalert';
+var urlpattern = config.baseUrl;
 
 
 
@@ -127,7 +130,7 @@ const ViewTeam = () => {
                 return (
                   <button
                   className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
+                    onClick={() => onUpdateRecord(row)}
                     title="Edit"
                   >
                    <FeatherIcon.Edit />
@@ -143,7 +146,7 @@ const ViewTeam = () => {
                 return (
                   <button
                   className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
+                    onClick={() => onDeleteRecord(row)}
                     title="Delete"
                   >
                    <FeatherIcon.Trash2 />
@@ -152,13 +155,40 @@ const ViewTeam = () => {
               },
         }
     ];
-    function _validateFunction(row , id) {    
-        // console.log("activity id :",(id));
-         // dispatch(getRequirementModal((row)));
- 
-         //dispatch( setSaveRequirement( row) );
- 
-          //   dispatch( getRequirementModal() );
+    function onUpdateRecord(row , id) {    
+        alert('work in progress');
+    }
+    //const [deletemessage, setdeletemessage]=useState();
+    function onDeleteRecord(row , id) {    
+        swal({
+            title: "Are you sure?",
+            text: "Want to delete this record ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                var config = {
+                    method: 'DELETE',
+                    url: `${urlpattern}TeamMaster/${row.tid}`,   
+                  };
+                  axios(config)
+                  .then(function (response) {
+                    getTeamList();
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              swal("Your Record has been deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("Your Record is safe!");
+            }
+          });
+        
+        
      }
     return (
         <React.Fragment>

@@ -15,9 +15,11 @@ const EditRequirementmodal = (props, row) => {
     const requirmentStore = useSelector((state) => state.Requirements.requirement);
    // let clientList = useSelector((state) => state.Client.clients || []);
     //console.log(requirmentStore.jid,"requirmentStorerequirmentStore");
-    var reqjid =requirmentStore.jid;
+    //console.log(requirmentStore.jid, "requirmentStorerequirmentStore");
+    //var reqjid =requirmentStore.jid || 0;
+    //const [jid, setJid]=useState(reqjid);
     const [requirement, setRequirement] = useState( {
-      jid:reqjid,  
+     // jid:reqjid,
       jobcode: '',
       jskill:'',
   } );
@@ -29,14 +31,18 @@ const EditRequirementmodal = (props, row) => {
       
       setRequirement( {
           ...requirement,
-          reqjid:requirmentStore ?requirmentStore.jid:reqjid,
           jobcode: requirmentStore ? requirmentStore.jobcode : '',
           jskill:requirmentStore ? requirmentStore.jskill:'',
       } );
   
       // eslint-disable-next-line
     }, [requirmentStore] );
-
+    const handleChange = e => {
+        setRequirement( {
+              ...requirement,
+              [e.target.name]: e.target.value
+          } );
+      }
     //console.log("Edit Requirement id :", requirmentStore);
     const toggle = () => {
         if (!modal) {
@@ -67,7 +73,8 @@ const EditRequirementmodal = (props, row) => {
                                         type="text"
                                         name="jobcode"
                                         id="jobcode"
-                                        value={ jobcode || '' }/>
+                                        value={ jobcode || '' }
+                                        onChange={handleChange}/>
                                 </FormGroup>
                             </Col>
                             <Col lg={4}>
@@ -77,7 +84,8 @@ const EditRequirementmodal = (props, row) => {
                                         type="text"
                                         name="jskill"
                                         id="jskill"
-                                        value={ jskill || '' } />
+                                        value={ jskill || '' } 
+                                        onChange={handleChange}/>
                                 </FormGroup>
                             </Col>
                         </Row>

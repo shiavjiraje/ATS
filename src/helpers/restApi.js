@@ -91,6 +91,11 @@ export const getAtsActivityList = () => {
 export const getTeamList = () => {
    return api.get( '/TeamMaster' );
 };
+
+//Reporting manager list getReportingMan
+export const getReportingMan = () => {
+   return api.get( '/ReportingManager' );
+};
 export const setTeam = (createteam) => {
    return api.post( '/TeamMaster',createteam );
 };

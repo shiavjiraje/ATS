@@ -22,6 +22,7 @@ import TeamLead from'./teamLead/reducers';
 import SalesRevenue from'./salesrevenue/reducers';
 import SalesMonthReport from'./salesmonthreport/reducers';
 import SalesCallReport from'./salescallreport/reducers';
+import ReportingManager from './reportingmanager/reducers'
 export default combineReducers({
     Auth,
     AppMenu,
@@ -43,5 +44,6 @@ export default combineReducers({
     TeamLead,
     SalesRevenue,
     SalesMonthReport,
-    SalesCallReport
+    SalesCallReport,
+    ReportingManager
 });

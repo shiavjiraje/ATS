@@ -7,7 +7,10 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import * as FeatherIcon from 'react-feather';
 import { getRoleList } from '../../../redux/role/actions';
-//import PageTitle from '../../components/PageTitle';
+import axios from 'axios';
+import config from '../../../helpers/baseurl';
+import swal from 'sweetalert';
+var urlpattern = config.baseUrl;
 
 
 
@@ -122,29 +125,55 @@ const ViewUserRole = () => {
         },
         {
             dataField: 'email',
-            text: 'Edit',
+            text: 'Delete',
             formatter: (cellContent, row) => {
                 //const id = row.jid;
                 return (
                   <button
                   className="btn btn-link text-secondary"
-                    onClick={() => _validateFunction(row)}
+                    onClick={() => onDeleteRecord(row)}
                     title="Edit"
                   >
-                   <FeatherIcon.Edit />
+                   <FeatherIcon.Trash2 />
                   </button>
                 );
               },
         },
     ];
     
-    function _validateFunction(row , id) {    
-        // console.log("activity id :",(id));
-         // dispatch(getRequirementModal((row)));
- 
-         //dispatch( setSaveRequirement( row) );
- 
-          //   dispatch( getRequirementModal() );
+    function onDeleteRecord(row , id) {    
+        swal({
+            title: "Are you sure?",
+            text: "Want to delete this record ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                var config = {
+                    method: 'DELETE',
+                    url: `${urlpattern}UserRole_Master/${row.id}`,   
+                  };
+                  axios(config)
+                  .then(function (response) {
+                   alert(response.data.Message)
+                    //swal("Status Updated Successful", "success");
+                    //toggle2();
+                    getRoleList();
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              swal("Your Record has been deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("Your Record is safe!");
+            }
+          });
+        
+        
      }
     return (
         <React.Fragment>

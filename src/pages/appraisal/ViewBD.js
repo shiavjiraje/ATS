@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search,CSVExport } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import { getCwsList } from '../../redux/clientwisesales/actions';
-//import PageTitle from '../../components/PageTitle';
+import {UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import * as FeatherIcon from 'react-feather';
-import axios from 'axios';
-import config from '../../helpers/baseurl';
-import swal from 'sweetalert';
-var urlpattern = config.baseUrl;
+import { getBDList } from '../../redux/list/actions';
+//import PageTitle from '../../components/PageTitle';
+
 const defaultSorted = [
     {
         dataField: 'id',
         order: 'asc',
     },
 ];
-//const { ExportCSVButton } = CSVExport;
+const { ExportCSVButton } = CSVExport;
 const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) => (
     <React.Fragment>
         <label className="d-inline mr-1">Show</label>
@@ -44,7 +42,7 @@ const TableWithSearch = (props) => {
     // const rowEvent = {
     //     onDoubleClick: ( e, row, index ) => {
 
-    //         //dispatch( setList( row ) );
+    //         dispatch( setList( row ) );
 
     //        // dispatch( getJoinListModal() );
     //         //console.log(props.result)
@@ -67,7 +65,29 @@ const TableWithSearch = (props) => {
                             <Row>
                                 <Col md={6} className="">
                                     <SearchBar {...props.searchProps} />
-                                </Col>                              
+                                </Col>    
+                                <Col md={6} className="text-right">
+                                <UncontrolledDropdown className=" profile-dropdown-menu">
+                <DropdownToggle
+                    data-toggle="dropdown"
+                    tag="button"
+                    className="btn btn-secondary dropdown-toggle bg-secondary  mr-0">
+                    Dropdown <FeatherIcon.ChevronDown />
+                </DropdownToggle>
+                <DropdownMenu right className="topbar-dropdown-menu profile-dropdown-items">
+                    <div className="dropdown-item notify-item p1">
+                    <ExportCSVButton className="btn-link" { ...props.csvProps }>Export CSV</ExportCSVButton>
+                    </div>
+                    <div  className="dropdown-item notify-item p1">
+                    <ExportCSVButton className="btn-link" { ...props.csvProps }>Export PDF</ExportCSVButton>
+                    </div>
+                    <div  className="dropdown-item notify-item p1">
+                    <ExportCSVButton className="btn-link" { ...props.csvProps }>Export EXCEL</ExportCSVButton>
+                    </div>
+                </DropdownMenu>
+            </UncontrolledDropdown>
+                                {/* <ExportCSVButton className="btn-primary" { ...props.csvProps }>Export CSV!!</ExportCSVButton> */}
+                                </Col>                            
                             </Row>
 
                             <BootstrapTable
@@ -98,74 +118,56 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewSalesClient = () => {
+const ViewBd = () => {
 
     const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.CWS.cws);
+   let records = useSelector((state) => state.List.bdlist);
     useEffect(() => {
-        dispatch(getCwsList());
+        dispatch(getBDList());
 
         // eslint-disable-next-line 
     }, []);
 
     const columns = [
-        
         {
-            dataField:'name',
-            text:"Sales Name"
+            dataField: 'd.R_Name',
+            text: 'Name.',
         },
         {
-            dataField: 'clientname',
-            text: 'Client Name',
+            dataField:'e.J_Client_Id',
+            text:"Client"
         },
         {
-            dataField: 'Delete',
-            text: 'Delete',
-            formatter: (cellContent, row) => {
-                //const id = row.jid;
-                return (
-                  <button
-                  className="btn btn-link text-secondary"
-                    onClick={() => onDeleteRecord(row)}
-                    title="Delete"
-                  >
-                   <FeatherIcon.Trash2 />
-                  </button>
-                );
-              },
+            dataField: 'e.J_Skill',
+            text: 'Skill',
+        },
+        {
+            dataField: 'e.J_Location',
+            text: 'Location',
+        },
+        {
+            dataField: 'c.O_Sel_Date',
+            text: 'Select Date',
+        },
+        {
+            dataField: 'c.O_Off_Date',
+            text: 'Oferr Date',
+        },
+        {
+            dataField: 'c.O_Join_Date',
+            text: 'Start Date',
+        },
+        {
+            dataField: 'g.E_Fullname',
+            text: 'Recruiter',
+            
+        },  
+        {
+            dataField: 'c.O_Status',
+            text: 'Status',
         }
     ];
-     function onDeleteRecord(row , id) {    
-        swal({
-            title: "Are you sure?",
-            text: "Want to delete this record ?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-                var config = {
-                    method: 'DELETE',
-                    url: `${urlpattern}SalesClientMaster/${row.id}`,   
-                  };
-                  axios(config)
-                  .then(function (response) {
-                    getCwsList();
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-              swal("Your Record has been deleted!", {
-                icon: "success",
-              });
-            } else {
-              swal("Your Record is safe!");
-            }
-          });
-        
-        
-     }
+ 
     return (
         <React.Fragment>
             <Row>
@@ -177,6 +179,6 @@ const ViewSalesClient = () => {
     );
 };
 
-export default ViewSalesClient;
+export default ViewBd;
 
 

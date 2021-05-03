@@ -19,3 +19,4 @@ export * from './teamLead/actions';
 export * from './salesrevenue/actions';
 export * from './salesmonthreport/actions';
 export * from './salescallreport/actions';
+export * from './reportingmanager/actions';

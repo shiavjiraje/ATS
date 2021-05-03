@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Input } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import { getCwsList } from '../../redux/clientwisesales/actions';
-//import PageTitle from '../../components/PageTitle';
-import * as FeatherIcon from 'react-feather';
-import axios from 'axios';
-import config from '../../helpers/baseurl';
-import swal from 'sweetalert';
+import ViewApprasalForm from './ViewApprasalForm';
+
+import config from '../../../helpers/baseurl';
 var urlpattern = config.baseUrl;
 const defaultSorted = [
     {
@@ -21,7 +18,7 @@ const defaultSorted = [
 //const { ExportCSVButton } = CSVExport;
 const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) => (
     <React.Fragment>
-        <label className="d-inline mr-1">Show</label>
+        <label className="d-inline mr-1">Show </label>
         <Input
             type="select"
             name="select"
@@ -44,9 +41,9 @@ const TableWithSearch = (props) => {
     // const rowEvent = {
     //     onDoubleClick: ( e, row, index ) => {
 
-    //         //dispatch( setList( row ) );
+    //        // dispatch( setList( row ) );
 
-    //        // dispatch( getJoinListModal() );
+    //        // dispatch( getReportingManagerModal() );
     //         //console.log(props.result)
     //     }
     // }
@@ -59,6 +56,10 @@ const TableWithSearch = (props) => {
           <div className="rect5" />
         </div>
       );
+      //var currMonthName  = moment().format('MMMM');
+      //var prevMonthName  = moment().format('MMMM');
+        //console.log(currMonthName);
+        //console.log(prevMonthName);
     return (
             
                 <ToolkitProvider bootstrap4 keyField="ROW_NUMBER" data={props.records} columns={props.columns} search>
@@ -67,9 +68,11 @@ const TableWithSearch = (props) => {
                             <Row>
                                 <Col md={6} className="">
                                     <SearchBar {...props.searchProps} />
-                                </Col>                              
+                                </Col>    
+                                <Col md={6} className="text-right">
+                               </Col>                            
                             </Row>
-
+                           
                             <BootstrapTable
                                 {...props.baseProps}
                                 bordered={false}
@@ -98,85 +101,93 @@ const TableWithSearch = (props) => {
     );
 };
 
-const ViewSalesClient = () => {
+const ReportingManager = () => {
 
-    const dispatch = useDispatch(); 
-   let records = useSelector((state) => state.CWS.cws);
+   // const dispatch = useDispatch(); 
+   
     useEffect(() => {
-        dispatch(getCwsList());
+        getAllAppraisal();
 
         // eslint-disable-next-line 
     }, []);
+    const [apprasalList, setapprasalList]=useState([]);
+    let loginDetails = useSelector((state)=> state.Auth.user || []);
+    var getEmpcode = loginDetails.EmployeeCode;
+const getAllAppraisal=()=>{
+    var axios = require('axios');
+   
+var config = {
+  method: 'get',
+  url: `${urlpattern}RMAppraisalMaster?empcode=${getEmpcode}`,
+  headers: { 
+    'Content-Type': 'application/json'
+  }
+};
 
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+  var apprasallist =response.data.Data;
+  setapprasalList(apprasallist);
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+}
+
+let records = apprasalList || [];
     const columns = [
-        
         {
-            dataField:'name',
-            text:"Sales Name"
+            dataField: 'paid',
+            text: 'ID.',
         },
         {
-            dataField: 'clientname',
-            text: 'Client Name',
+            dataField:'empname',
+            text:"Employee Name"
         },
         {
-            dataField: 'Delete',
-            text: 'Delete',
+            dataField: 'rmname',
+            text: 'Reporting Manager',
+        },
+        {
+            dataField: 'recruitername',
+            text: 'Action',
             formatter: (cellContent, row) => {
                 //const id = row.jid;
                 return (
                   <button
                   className="btn btn-link text-secondary"
-                    onClick={() => onDeleteRecord(row)}
-                    title="Delete"
+                    onClick={() => onViewApprasal(row)}
+                    title="View"
                   >
-                   <FeatherIcon.Trash2 />
+                   View
                   </button>
                 );
               },
         }
     ];
-     function onDeleteRecord(row , id) {    
-        swal({
-            title: "Are you sure?",
-            text: "Want to delete this record ?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-                var config = {
-                    method: 'DELETE',
-                    url: `${urlpattern}SalesClientMaster/${row.id}`,   
-                  };
-                  axios(config)
-                  .then(function (response) {
-                    getCwsList();
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-              swal("Your Record has been deleted!", {
-                icon: "success",
-              });
-            } else {
-              swal("Your Record is safe!");
-            }
-          });
-        
-        
-     }
+    const[showViewAppraisal, setshowViewAppraisal]=useState(true);
+    const [apprasalviewdata, setapprasalviewdata]=useState([]);
+ const onViewApprasal =(row , id)=>{
+    console.log(row, "apprasal row data");
+    setapprasalviewdata(row);
+    setshowViewAppraisal(!showViewAppraisal);
+ }
+ 
     return (
         <React.Fragment>
-            <Row>
+            {showViewAppraisal ?<Row>
                 <Col>
                     <TableWithSearch records={records} columns={columns} />
                 </Col>
-            </Row>
+            </Row>:
+            <ViewApprasalForm apprasalviewdata={apprasalviewdata}/>           
+}
         </React.Fragment>
     );
 };
 
-export default ViewSalesClient;
+export default ReportingManager;
 
 

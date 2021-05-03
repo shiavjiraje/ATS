@@ -898,3 +898,23 @@ a:hover {
 input[type="file"]{
     padding: 0.3rem 0.75rem;
 }
+.squire{
+    height: 40px;
+    width: 50px;
+} 
+.green-bg{
+    background-color: #01ca30;
+}
+.orange-bg{
+    background-color: #f16600;
+}
+.yellow-bg{
+    background-color: #ffde00;
+}
+.red-bg{
+    background-color: #e40001;
+}
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e5e5e5;
+    opacity: 1;
+}
