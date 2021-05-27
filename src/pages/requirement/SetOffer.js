@@ -8,6 +8,7 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import config from '../../helpers/baseurl';
 import axios from 'axios';
+import swal from 'sweetalert';
 //import axios from 'axios';
 
 var urlpattern = config.baseUrl;
@@ -209,11 +210,12 @@ const SetOffer = (props) => {
         .then(function (response) {
           console.log(JSON.stringify(response.data));
           getAllRequirementMaster();
+          swal("Status Updated Successful", "success");
           //swal("Status Updated Successful", "success");
           toggle();
         })
         .catch(function (error) {
-          console.log(error);
+            swal(error, "error");
         });
       };
     return (

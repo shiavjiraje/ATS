@@ -6,6 +6,7 @@ import { getRecruiterList } from '../../redux/recruiter/actions';
 import { Row, Col, FormGroup,  Label } from 'reactstrap';
 import axios from 'axios';
 import { Multiselect } from "multiselect-react-dropdown";
+import swal from 'sweetalert';
 const AddRequirement = (props) => {
     //const [jidPost, setJid] = useState('1000034');
     const [jclientPost, setJclient] = useState([]);
@@ -75,7 +76,10 @@ const AddRequirement = (props) => {
 
             .then((response) => {
                console.log(response);
-            });
+               swal("Status Updated Successful", "success");
+            }).catch(function (error) {
+                swal(error, "error");
+              });
         cleanForm();
     };
 

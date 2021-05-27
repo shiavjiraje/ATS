@@ -1,4 +1,5 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import swal from 'sweetalert';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
 import {
@@ -27,10 +28,11 @@ function* setTeam( action ){
         const result = yield call( api.setTeam, action.payload );
         yield put( actions.createTeamSuccess( result.data ) );
         yield call( getTeamList );
+        swal("Record Created Successful", "success"); 
         console.log(result);
     } catch (error) {
         console.log(error);
-       
+        swal(error, "error");
     }
 }
 function* watchGetTeamRequest(){

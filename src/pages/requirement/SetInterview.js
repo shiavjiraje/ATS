@@ -11,6 +11,7 @@ import config from '../../helpers/baseurl';
 //import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 var urlpattern = config.baseUrl;
 
 const defaultSorted = [
@@ -212,10 +213,11 @@ const SetInterview = (props) => {
           console.log(JSON.stringify(response.data));
           getAllRequirementMaster();
           //swal("Status Updated Successful", "success");
+          swal("Status Updated Successful", "success");
           toggle();
         })
         .catch(function (error) {
-          console.log(error);
+            swal(error, "error");
         });
       };
     return (

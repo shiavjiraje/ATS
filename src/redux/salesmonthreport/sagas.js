@@ -1,4 +1,5 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import swal from 'sweetalert';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
 //import swal from 'sweetalert';
@@ -29,9 +30,10 @@ function* setMonth( action ){
         yield put( actions.setMonthRquest( result.data ) );
         yield call( getMonthList );
         console.log(result.data);
+        swal("Record Created Successful", "success"); 
     } catch (error) {
         console.log(error);
-       
+        swal(error, "error");
     }
 }
 function* watchGetMonthRequest(){

@@ -10,6 +10,7 @@ import * as FeatherIcon from 'react-feather';
 import config from '../../helpers/baseurl';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 //import axios from 'axios';
 
 var urlpattern =config.baseUrl;
@@ -142,6 +143,7 @@ axios(config)
 });
 
     }
+    //const[rid ,setrid]=useState('');
 let records = requireData ||[];
 console.log(records,"viewSingleRequirement records");
 
@@ -205,23 +207,77 @@ console.log(records,"viewSingleRequirement records");
     },
 },
         {
-            dataField: 'Action',
-            text: 'Action',
+            dataField: 'accept',
+            text: 'Accept',
             formatter: (cellContent, row) => {
-                //const id = row.jid;
+              console.log(row, '1resume action data');
+              //setrid(row.iid);
                 return (
                     <button type="button" 
-                    id="actionButton" title="Action"
-                onClick={() => {_validateFunction(row=[])}} 
+                    id="actionButton" title="Accept"
+                onClick={() => {acceptresume(row)}} 
                 className="btn btn-link text-secondary">
-                 <FeatherIcon.Target />
+                 <FeatherIcon.CheckSquare />
                  {/* <i className="uil uil-file-exclamation-alt"></i> */}
                 </button>
                 );
               },
         },
+        {
+          dataField: 'reject',
+          text: 'Reject',
+          formatter: (cellContent, row) => {
+            console.log(row, '1resume action data');
+           // setrid(row.iid);
+              return (
+                  <button type="button" 
+                  id="actionButton" title="Reject"
+              onClick={() => {rejectresume(row)}} 
+              className="btn btn-link text-secondary">
+               <FeatherIcon.Delete />
+               {/* <i className="uil uil-file-exclamation-alt"></i> */}
+              </button>
+              );
+            },
+      },
     ];
-    function _validateFunction(row , id) {    
+    function acceptresume(row , id) {    
+      var resid= row.c.R_Id;
+      console.log(row, 'acceptresume');
+      var config = {
+        method: 'PUT',
+        url: `${urlpattern}ResumeStatus?resid=${resid}&resumestatus=Accept`, 
+      };
+      //console.log(data);
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        getAllRequirementMaster();
+        swal("Status Updated Successful", "success");
+        //toggle2();
+      })
+      .catch(function (error) {
+        swal(error, "error");
+      });
+     }
+     function rejectresume(row , id) {    
+      var resid= row.c.R_Id;
+      var config = {
+        method: 'PUT',
+        url: `${urlpattern}ResumeStatus?resid=${resid}&resumestatus=Reject`, 
+      };
+      //console.log(data);
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        getAllRequirementMaster();
+        swal("Status Updated Successful", "success");
+      
+        //toggle2();
+      })
+      .catch(function (error) {
+        swal(error, "error");
+      });
      }
      const [modal, setModal] = useState(false);
      const  [status, setstatus] = useState('');
@@ -272,10 +328,11 @@ console.log(records,"viewSingleRequirement records");
            console.log(JSON.stringify(response.data));
            getAllRequirementMaster();
            //swal("Status Updated Successful", "success");
+           swal("Record Saved Successful", "success");
            toggle();
          })
          .catch(function (error) {
-           console.log(error);
+          swal(error, "error");
          });
        };
     const [file, setFile] = useState(null);
@@ -295,9 +352,12 @@ console.log(records,"viewSingleRequirement records");
         .then((response) => response.json())
         .then((result) => {
             console.log('Success:', result);
+            alert(result.Message);
+            getAllRequirementMaster();
         })
         .catch((error) => {
             console.error('Error:', error);
+            alert(error);
         });
 };
   

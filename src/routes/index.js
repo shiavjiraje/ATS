@@ -22,7 +22,7 @@ const Confirm = React.lazy(() => import('../pages/auth/Confirm'));
 //DashboardNew
 const Dashboard =React.lazy(()=> import('../pages/dashboard/Dashboard'));
 //working page
-const dashboardOld =React.lazy(()=>import('../pages/dashboardOld/index'));
+//const dashboardOld =React.lazy(()=>import('../pages/dashboardOld/index'));
 
 //Requirement
 const Requirement =React.lazy(()=>import('../pages/requirement/Requirement'));
@@ -40,6 +40,8 @@ const HrPolicy = React.lazy(()=> import('../pages/hrpolicy/HrPolicy'));
 const EmplHandbook = React.lazy(()=> import('../pages/employehandbook/EmplHandbook'));
 //Appraisal
 const Appraisal = React.lazy(()=> import('../pages/appraisal/Appraisal'));
+//Appraisal
+const SalrySlip = React.lazy(()=> import('../pages/salaryslip/SalrySlip'));
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -192,7 +194,7 @@ const asplRoutes = {
     path: '/salaryslip',
     name: 'Salary Slip',
     icon: FeatherIcon.Download,
-    component: dashboardOld,
+    component: SalrySlip,
     route: PrivateRoute,
     roles:["Admin","Manager","Sales","VP","Teamlead","Recruiter","IT","HR","Account","Contract",],
 };

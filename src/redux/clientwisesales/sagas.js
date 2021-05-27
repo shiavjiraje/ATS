@@ -1,4 +1,5 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import swal from 'sweetalert';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
 import {
@@ -28,9 +29,10 @@ function* setCws( action ){
         yield put( actions.createCwsSuccess( result.data ) );
         yield call( getCwsList );
         console.log(result);
+        swal("Record Created Successful", "success"); 
     } catch (error) {
         console.log(error);
-       
+        swal(error, "error");
     }
 }
 function* watchGetCwsRequest(){

@@ -1,4 +1,5 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import swal from 'sweetalert';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
 //import swal from 'sweetalert';
@@ -28,10 +29,11 @@ function* setCall( action ){
         const result = yield call( api.setCall, action.payload );
         yield put( actions.setCallRquest( result.data ) );
         yield call( getCallList );
+        swal("Record Created Successful", "success"); 
         console.log(result.data);
     } catch (error) {
         console.log(error);
-       
+        swal(error, "error");
     }
 }
 function* watchGetCallRequest(){

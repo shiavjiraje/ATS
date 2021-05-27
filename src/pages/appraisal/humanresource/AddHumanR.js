@@ -5,6 +5,7 @@ import config from '../../../helpers/baseurl';
 import axios from 'axios';
 import { getUserList } from '../../../redux/user/actions';
 import { getReportingManList } from '../../../redux/reportingmanager/actions';
+import swal from 'sweetalert';
 
 var urlpattern =config.baseUrl;
 const AddHumanR =()=> {
@@ -38,10 +39,11 @@ const AddHumanR =()=> {
       axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        swal("Record Created Successful", "success"); 
         cleanform();
       })
       .catch(function (error) {
-       // swal(JSON.stringify(error.response.data.error.errors[0].title), "You clicked the button!", "error")
+        swal(error, "error");
       });
      }
     const cleanform=()=>{

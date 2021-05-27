@@ -1,4 +1,5 @@
 import { fork, takeEvery, call, put, all } from 'redux-saga/effects';
+import swal from 'sweetalert';
 import * as api from '../../helpers/restApi';
 import * as actions from './actions';
 import {
@@ -28,9 +29,11 @@ function* createRole( action ){
         const result = yield call( api.createRole, action.payload );
         yield put( actions.createRoleSuccess( result.data ) );
         yield call( getRoleList );
+        swal("Record Created Successful", "success"); 
         console.log(result.data);
     } catch (error) {
         console.log(error);
+        swal(error, "error");
        
     }
 }
