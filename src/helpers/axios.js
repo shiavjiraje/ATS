@@ -2,7 +2,7 @@ import axios from 'axios';
 //import { setSession } from './authUtils';
 
 const api = axios.create( {
-    baseURL : process.env.REACT_APP_BACKEND_URL,
+    baseURL : 'http://144.48.250.235:98/api',  
 } );
 
 api.interceptors.response.use( 
@@ -17,7 +17,7 @@ api.interceptors.response.use(
         if( guid && error.response.status === 401 && !originalRequest._retry ) {
             originalRequest._retry = true;
             return axios
-                .post( `${process.env.REACT_APP_BACKEND_URL}/auth`, { GUID: guid } )
+                .post( `http://144.48.250.235:98/api/auth`, { GUID: guid } )
                 .then( ( res ) => {
                     if( res.status === 200 ){
                        // setSession( res.data.token, '' );

@@ -21,7 +21,7 @@ const INIT_STATE = {
 
 
 const Auth = (state = INIT_STATE, action) => {
-    console.log("payload in reducer ===",action.payload);
+    //console.log("payload in reducer ===",action.payload);
     switch (action.type) {
         case LOGIN_USER:
             return { ...state, loading: true };

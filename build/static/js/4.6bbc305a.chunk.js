@@ -1,0 +1,2 @@
+(this.webpackJsonpATS=this.webpackJsonpATS||[]).push([[4],{638:function(e,a,t){"use strict";t.r(a);var s=t(0),n=t.n(s);class r extends s.Component{render(){return n.a.createElement("footer",{className:"footer"},n.a.createElement("div",{className:"container-fluid"},n.a.createElement("div",{className:"row"},n.a.createElement("div",{className:"col-12"},"2021 \xa9 ATS. All Rights Reserved."))))}}a.default=r}}]);
+//# sourceMappingURL=4.6bbc305a.chunk.js.map

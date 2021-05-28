@@ -8,12 +8,13 @@ import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, FORGET_PASSWORD } from './const
 
 import {
     loginUserSuccess,
-    loginUserFailed,
+    //loginUserFailed,
     registerUserSuccess,
     registerUserFailed,
     forgetPasswordSuccess,
     forgetPasswordFailed,
 } from './actions';
+import swal from 'sweetalert';
 
 /**
  * Sets the session
@@ -28,7 +29,7 @@ const setSession = user => {
  * Login the user
  * @param {*} payload - username and password
  */
-function* login({ payload: { username, password } }) {
+function* login({ payload: { username, password, history } }) {
     const options = {
         body: JSON.stringify({ username, password }),
         method: 'POST',
@@ -43,18 +44,21 @@ function* login({ payload: { username, password } }) {
         localStorage.setItem('Username', response.Data.Username);
         yield put(loginUserSuccess(response.Data));
     } catch (error) {
-        let message;
-        switch (error.status) {
-            case 500:
-                message = 'Internal Server Error';
-                break;
-            case 401:
-                message = 'Invalid credentials';
-                break;
-            default:
-                message = error;
-        }
-        yield put(loginUserFailed(message));
+       // console.log(error, "login faild");
+        //let message;
+        swal({
+            title: "Username Password Invalid",
+            text: "Message!",
+            type: "error"
+        }).then(function() {
+            window.location = "/account/login";
+        });
+
+        //swal("Username Password Invalid ", "error");
+        // logout();
+        // yield call(() => {
+        //     history.push('/account/login');
+        // });
         setSession(null);
     }
 }

@@ -78,12 +78,12 @@ const TableWithSearch = (props) => {
                     <div className="dropdown-item notify-item p1">
                     <ExportCSVButton className="btn-link" { ...props.csvProps }>Export CSV</ExportCSVButton>
                     </div>
-                    <div  className="dropdown-item notify-item p1">
+                    {/* <div  className="dropdown-item notify-item p1">
                     <ExportCSVButton className="btn-link" { ...props.csvProps }>Export PDF</ExportCSVButton>
                     </div>
                     <div  className="dropdown-item notify-item p1">
                     <ExportCSVButton className="btn-link" { ...props.csvProps }>Export EXCEL</ExportCSVButton>
-                    </div>
+                    </div> */}
                 </DropdownMenu>
             </UncontrolledDropdown>
                                 {/* <ExportCSVButton className="btn-primary" { ...props.csvProps }>Export CSV!!</ExportCSVButton> */}

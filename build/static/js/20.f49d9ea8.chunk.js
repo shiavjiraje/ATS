@@ -1,0 +1,2 @@
+(this.webpackJsonpATS=this.webpackJsonpATS||[]).push([[20],{642:function(e,t,a){e.exports=a.p+"static/media/policiesUpdatesnew.368f77bc.pdf"},663:function(e,t,a){"use strict";a.r(t);var i=a(0),n=a.n(i),r=a(642),s=a.n(r);t.default=()=>n.a.createElement(n.a.Fragment,null,n.a.createElement("iframe",{id:"fred",title:"PDF in an i-Frame",src:s.a,frameborder:"1",scrolling:"auto",height:"1100",width:"100%"}))}}]);
+//# sourceMappingURL=20.f49d9ea8.chunk.js.map

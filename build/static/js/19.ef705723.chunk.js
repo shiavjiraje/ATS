@@ -1,0 +1,2 @@
+(this.webpackJsonpATS=this.webpackJsonpATS||[]).push([[19],{643:function(e,t,a){e.exports=a.p+"static/media/EmployeeHandBook.b6645d9f.pdf"},664:function(e,t,a){"use strict";a.r(t);var n=a(0),i=a.n(n),r=a(643),o=a.n(r);t.default=()=>i.a.createElement(i.a.Fragment,null,i.a.createElement("iframe",{id:"fred",title:"PDF in an i-Frame",src:o.a,frameborder:"1",scrolling:"auto",height:"1100",width:"100%"}))}}]);
+//# sourceMappingURL=19.ef705723.chunk.js.map
